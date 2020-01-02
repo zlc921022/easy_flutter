@@ -23,6 +23,6 @@ class HomeTitleView extends StatelessWidget {
           color: AppColor.black,
         )
       ],
-    ).intoContainer(margin: EdgeInsets.all(15));
+    ).intoContainer(margin: const EdgeInsets.only(left: 12, top: 10));
   }
 }

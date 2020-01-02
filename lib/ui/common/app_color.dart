@@ -13,4 +13,6 @@ class AppColor{
   static Color blue = Color(0xFF3688FF);
   static Color golden = Color(0xff8B7961);
   static Color black = Color(0xff000000);
+  static Color black_99 = Color(0xff999999);
+  static Color black_66 = Color(0xff666666);
 }

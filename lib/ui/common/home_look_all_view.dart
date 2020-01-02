@@ -14,12 +14,14 @@ class HomeLookAllView extends StatelessWidget {
         _callback();
       },
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Text('全部', style: TextStyle(fontSize: 14, color: AppColor.black),),
           SizedBox(width: 6),
-          Icon(Icons.arrow_forward_ios)
+          Icon(Icons.arrow_forward_ios,size: 16,)
         ],
-      ).intoContainer(margin: EdgeInsets.only(right: 15, top: 15)),
+      ).intoContainer(margin: EdgeInsets.only(right: 15)),
     );
   }
 }
