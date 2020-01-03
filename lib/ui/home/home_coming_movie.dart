@@ -40,12 +40,12 @@ class HomeComingMovieState extends State<HomeComingMovie> {
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 10,
-                childAspectRatio: 1),
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: 0.52),
             itemBuilder: (context, index) {
               return ComingMovieItem();
-            }),
+            }).intoContainer(margin: const EdgeInsets.all(12)),
       ],
     ).intoContainer(color: AppColor.white, margin: EdgeInsets.only(bottom: 5));
   }

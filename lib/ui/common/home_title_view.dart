@@ -11,14 +11,16 @@ class HomeTitleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
           title,
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 18, color: AppColor.black),
         ),
-        SizedBox(height: 6),
+        SizedBox(height: 5),
         Container(
+          width: 70,
           height: 2,
           color: AppColor.black,
         )
