@@ -12,7 +12,7 @@ class ActorPhotoView extends StatelessWidget {
   List<Widget> getData(BuildContext context) {
     List<Widget> data = [];
     for (int i = 0; i < 6; i++) {
-      data.add(_buildPhotoItem());
+      data.add(_buildPhotoItem(context,i));
     }
     data.add(_buildLookMore(context));
     return data;
@@ -34,9 +34,15 @@ class ActorPhotoView extends StatelessWidget {
   }
 
   /// 演员相册
-  Widget _buildPhotoItem() {
+  Widget _buildPhotoItem(BuildContext context,int initIndex) {
+    List<String> images = [];
+    for (int i = 0; i < 6; i++) {
+      images.add(imageUrl);
+    }
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AppNavigator.toPhotoViewGallery(context, images, initIndex);
+      },
       child: CommonRoundedImage(imageUrl, width: 120 / 0.75, height: 120),
     ).intoContainer(margin: const EdgeInsets.only(left: 15));
   }
@@ -45,7 +51,7 @@ class ActorPhotoView extends StatelessWidget {
   Widget _buildLookMore(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toPhotoList(context);
+        AppNavigator.toPhotoList(context, '相册');
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 8),

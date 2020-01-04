@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/util/toast.dart';
 import 'package:widget_chain/widget_chain.dart';
 
@@ -15,6 +15,7 @@ class ComingMovieItem extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         Toast.show('点击进入电影详情');
+        AppNavigator.toMovieDetail(context);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/movie/detail/movie_top_list_view.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/util/toast.dart';
 import 'package:widget_chain/widget_chain.dart';
@@ -15,6 +16,9 @@ class TopListItemView extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           Toast.show('item点击了');
+          Navigator.push(context, new MaterialPageRoute(builder: (context) {
+            return new MovieTopListView();
+          }));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

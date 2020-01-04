@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
 
@@ -20,16 +21,18 @@ class ActorWorksView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 8,
               itemBuilder: (context, index) {
-                return _buildWorksItem(index);
+                return _buildWorksItem(context, index);
               }),
         )
       ],
     );
   }
 
-  Widget _buildWorksItem(int index) {
+  Widget _buildWorksItem(BuildContext context, int index) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AppNavigator.toMovieDetail(context);
+      },
       child: Container(
         margin: EdgeInsets.only(left: 15, right: (index == 7) ? 15 : 0),
         child: new Column(
