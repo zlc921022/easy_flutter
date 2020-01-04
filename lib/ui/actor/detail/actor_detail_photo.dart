@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:widget_chain/widget_chain.dart';
 
-class MovieDetailPrevue extends StatelessWidget {
+class ActorPhotoView extends StatelessWidget {
   String imageUrl =
       "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578132145178&di=6f721a62b5e33b57659cdaeed7ced150&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fsoftbbs%2F1103%2F09%2Fc0%2F6952476_1299664187183_1024x1024soft.jpg";
-  List<Widget> childrens = [];
 
-  List<Widget> getData() {
+  List<Widget> getData(BuildContext context) {
+    List<Widget> data = [];
     for (int i = 0; i < 6; i++) {
-      childrens.add(_buildStillItem());
+      data.add(_buildPhotoItem());
     }
-    for (int i = 0; i < 6; i++) {
-      childrens.add(_buildPhotoItem());
-    }
-    childrens.add(_buildLookMore());
-    return childrens;
+    data.add(_buildLookMore(context));
+    return data;
   }
 
   @override
@@ -25,40 +23,17 @@ class MovieDetailPrevue extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CommonSectionTitle('预告片 / 剧照'),
+          CommonSectionTitle('相册'),
           SizedBox.fromSize(
               size: Size.fromHeight(120),
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: getData(),
+                children: getData(context),
               )).intoContainer(margin: const EdgeInsets.only(bottom: 15))
         ]);
   }
 
-  /// 电影预告片
-  Widget _buildStillItem() {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        CommonRoundedImage(imageUrl, width: 120 / 0.75, height: 120),
-        GestureDetector(
-          onTap: () {},
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: AppColor.black_cc,
-              ),
-              Icon(Icons.play_arrow, color: AppColor.white)
-            ],
-          ),
-        )
-      ],
-    ).intoContainer(margin: EdgeInsets.only(left: 15));
-  }
-
-  /// 电影剧照
+  /// 演员相册
   Widget _buildPhotoItem() {
     return GestureDetector(
       onTap: () {},
@@ -67,9 +42,11 @@ class MovieDetailPrevue extends StatelessWidget {
   }
 
   /// 查看更多
-  Widget _buildLookMore() {
+  Widget _buildLookMore(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AppNavigator.toPhotoList(context);
+      },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 8),
         child: Row(

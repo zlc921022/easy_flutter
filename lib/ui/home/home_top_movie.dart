@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
 import 'package:flutter_movie/ui/common/home_title_view.dart';
 import 'package:flutter_movie/ui/home/top_movie_item.dart';
@@ -17,7 +18,7 @@ class HomeTopMovie extends StatelessWidget {
             HomeTitleView('影院热映'),
             HomeLookAllView(
               () {
-                Toast.show('查看更多');
+                AppNavigator.toMovieList(context,'影院热映','top_movie');
               },
             ).intoExpanded(),
           ],

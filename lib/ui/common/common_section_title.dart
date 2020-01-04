@@ -9,11 +9,11 @@ class CommonSectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
       child: Text(title,
           style: TextStyle(
               color: AppColor.white,
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.bold)),
     );
   }

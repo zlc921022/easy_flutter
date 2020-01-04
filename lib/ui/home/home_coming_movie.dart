@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
 import 'package:flutter_movie/ui/common/home_title_view.dart';
 import 'package:flutter_movie/ui/home/coming_movie_item.dart';
 import 'package:widget_chain/widget_chain.dart';
-
-import '../../util/toast.dart';
 
 class HomeComingMovie extends StatefulWidget {
   @override
@@ -30,7 +29,7 @@ class HomeComingMovieState extends State<HomeComingMovie> {
           children: <Widget>[
             HomeTitleView('即将上映'),
             HomeLookAllView(() {
-              Toast.show('查看更多');
+              AppNavigator.toMovieList(context, '即将上映', 'coming_soon');
             }).intoExpanded(),
           ],
         ),

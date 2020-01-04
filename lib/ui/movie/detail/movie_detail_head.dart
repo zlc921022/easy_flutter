@@ -25,14 +25,14 @@ class MovieDetailHead extends StatelessWidget {
               image: CachedNetworkImageProvider(imageUrl),
               fit: BoxFit.cover,
               width: Screen.width,
-              height: 240,
+              height: 218,
             ),
             Opacity(
               opacity: 0.7,
               child: Container(
                 color: AppColor.black_33,
                 width: Screen.width,
-                height: 240,
+                height: 218,
               ),
             )
           ],
