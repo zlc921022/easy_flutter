@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/util/toast.dart';
 import 'package:widget_chain/widget_chain.dart';
@@ -13,11 +14,12 @@ class TopMovieItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Toast.show('点击进入电影详情');
+        AppNavigator.toMovieDetail(context);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CommonRoundedImage(imageUrl),
+          CommonRoundedImage(imageUrl).intoExpanded(),
           SizedBox(height: 2),
           Text('美丽人生',
               maxLines: 1,
@@ -29,7 +31,7 @@ class TopMovieItem extends StatelessWidget {
           SizedBox(height: 2),
           Text('8.8', style: TextStyle(fontSize: 10, color: AppColor.black_99)),
         ],
-      ).intoContainer(margin: EdgeInsets.only(bottom: 10)),
+      ),
     );
   }
 }

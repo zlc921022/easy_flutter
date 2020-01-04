@@ -19,7 +19,7 @@ class ComingMovieItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CommonRoundedImage(imageUrl),
+          CommonRoundedImage(imageUrl).intoExpanded(),
           SizedBox(height: 2),
           Text('美丽人生',
               maxLines: 1,

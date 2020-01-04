@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/util/toast.dart';
 import 'package:widget_chain/widget_chain.dart';
@@ -17,6 +18,7 @@ class BannerItemView extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         Toast.show('banner点击了');
+        AppNavigator.toWebView(context);
       },
       child: Stack(
         children: <Widget>[

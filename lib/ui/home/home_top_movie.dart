@@ -38,6 +38,7 @@ class HomeTopMovie extends StatelessWidget {
       ],
     ).intoContainer(
       color: AppColor.white,
+      margin: const EdgeInsets.only(bottom: 5)
     );
   }
 }
