@@ -13,7 +13,7 @@ class MyHeadImage extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         Container(
-          height: 188,
+          height: 248,
           width: Screen.width,
           color: AppColor.black,
           child: Opacity(

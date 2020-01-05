@@ -13,21 +13,22 @@ class MyPage extends StatefulWidget {
   }
 }
 
-class MyPageState extends State with RouteAware {
-
+class MyPageState extends State<MyPage> with RouteAware {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.white,
-      child: ListView(
-        children: <Widget>[
-          MyHeadImage(),
-          CommonMyItemView('icon_github.png', '项目地址', clickProject),
-          CommonMyItemView('icon_qq.png', 'Flutter技术群', clickQQChat),
-          CommonMyItemView('icon_wechat.png', '我的微信号', clickWeChat),
-          CommonMyItemView('icon_account.png', '我的公众号', clickAccount),
-          CommonMyItemView('icon_api.png', 'API文档', clickApi),
-        ],
+    return Scaffold(
+      body: Container(
+        color: AppColor.white,
+        child: ListView(
+          children: <Widget>[
+            MyHeadImage(),
+            CommonMyItemView('icon_github.png', '项目地址', clickProject),
+            CommonMyItemView('icon_qq.png', 'Flutter技术群', clickQQChat),
+            CommonMyItemView('icon_wechat.png', '我的微信号', clickWeChat),
+            CommonMyItemView('icon_account.png', '我的公众号', clickAccount),
+            CommonMyItemView('icon_api.png', 'API文档', clickApi),
+          ],
+        ),
       ),
     );
   }
