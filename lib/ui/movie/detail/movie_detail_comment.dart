@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
+import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 class MovieDetailComment extends StatelessWidget {
@@ -67,8 +68,14 @@ class MovieDetailComment extends StatelessWidget {
                         color: AppColor.white,
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 2),
-                Text(commentTime,
-                    style: TextStyle(fontSize: 14, color: AppColor.white)),
+                Row(
+                  children: <Widget>[
+                    StaticRatingBar(size: 13, rate: 4.6),
+                    SizedBox(width: 5),
+                    Text(commentTime,
+                        style: TextStyle(fontSize: 12, color: AppColor.white)),
+                  ],
+                )
               ],
             )
           ],

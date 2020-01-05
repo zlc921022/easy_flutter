@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_top_list_view.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/util/toast.dart';
@@ -80,6 +81,8 @@ class TopListItemView extends StatelessWidget {
         Text('$index. 杀手预言',
                 style: TextStyle(fontSize: 10, color: AppColor.white))
             .intoExpanded(),
+        StaticRatingBar(size: 13,rate: 4.0),
+        SizedBox(width: 5),
         Text('8.8', style: TextStyle(fontSize: 10, color: AppColor.white)),
       ],
     ).intoContainer(

@@ -3,8 +3,9 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
+import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 
-class ActorWorksView extends StatelessWidget {
+class ActorDetailWorks extends StatelessWidget {
   String imageUrl =
       "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578138527882&di=ff4b1b2b5c96eeac744ef6771d670adc&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fpic%2F6%2F89%2F77ca313194.jpg";
 
@@ -42,7 +43,14 @@ class ActorWorksView extends StatelessWidget {
             SizedBox(height: 5),
             Text('岁月', style: TextStyle(fontSize: 14, color: AppColor.white)),
             SizedBox(height: 5),
-            Text('9.0', style: TextStyle(fontSize: 12, color: AppColor.white)),
+            Row(
+              children: <Widget>[
+                StaticRatingBar(size: 13, rate: 4.8),
+                SizedBox(width: 5),
+                Text('9.0',
+                    style: TextStyle(fontSize: 12, color: AppColor.white)),
+              ],
+            )
           ],
         ),
       ),

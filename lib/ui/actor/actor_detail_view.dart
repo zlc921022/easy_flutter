@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/actor/detail/actor_detail_head.dart';
 import 'package:flutter_movie/ui/actor/detail/actor_detail_photo.dart';
-import 'package:flutter_movie/ui/actor/detail/actor_works_view.dart';
+import 'package:flutter_movie/ui/actor/detail/actor_detail_works.dart';
 import 'package:flutter_movie/ui/common/common_intro_view.dart';
 
 class ActorDetailView extends StatefulWidget {
@@ -31,7 +31,7 @@ class ActorDetailViewState extends State {
               children: <Widget>[
                 new ActorDetailHead(imageUrl, '于和伟'),
                 new CommonIntroView(intro, expand, clickShowAll),
-                new ActorWorksView(),
+                new ActorDetailWorks(),
                 new ActorPhotoView(),
               ],
             ),

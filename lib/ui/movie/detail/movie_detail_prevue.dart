@@ -3,6 +3,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
+import 'package:flutter_movie/ui/movie/video_play_view.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 class MovieDetailPrevue extends StatelessWidget {
@@ -12,7 +13,7 @@ class MovieDetailPrevue extends StatelessWidget {
   List<Widget> getData(BuildContext context) {
     List<Widget> datas = [];
     for (int i = 0; i < 6; i++) {
-      datas.add(_buildStillItem());
+      datas.add(_buildStillItem(context));
     }
     for (int i = 0; i < 6; i++) {
       datas.add(_buildPhotoItem(context, i));
@@ -37,13 +38,17 @@ class MovieDetailPrevue extends StatelessWidget {
   }
 
   /// 电影预告片
-  Widget _buildStillItem() {
+  Widget _buildStillItem(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
         CommonRoundedImage(imageUrl, width: 120 / 0.75, height: 120),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, new MaterialPageRoute(builder: (context){
+              return new VideoPlayView();
+            }));
+          },
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[

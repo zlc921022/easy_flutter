@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
+import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 
 class MovieListItemView extends StatelessWidget {
-
   final String action;
   final String imageUrl;
-  MovieListItemView(this.imageUrl,this.action);
+
+  MovieListItemView(this.imageUrl, this.action);
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +45,15 @@ class MovieListItemView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 18)),
                     SizedBox(height: 10),
-                    Text('8.8',
-                        style:
-                            TextStyle(color: AppColor.black_99, fontSize: 12)),
+                    Row(
+                      children: <Widget>[
+                        StaticRatingBar(size: 13, rate: 3.8),
+                        SizedBox(width: 5),
+                        Text('8.8',
+                            style: TextStyle(
+                                color: AppColor.black_99, fontSize: 12)),
+                      ],
+                    ),
                     SizedBox(height: 10),
                     Text(
                         '2019 / 剧情 家庭 / 王子异\n'

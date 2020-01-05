@@ -7,16 +7,18 @@ import 'package:flutter_movie/ui/movie/movie_detail_list.dart';
 import 'package:flutter_movie/ui/movie/movie_list_view.dart';
 
 class AppNavigator {
+
+
   static void back(BuildContext context) {
     Navigator.pop(context);
   }
 
-  static void toWebView(BuildContext context) {
+  static void toWebView(BuildContext context,{String url}) {
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) =>
-                CommonWebView('https://www.baidu.com', '百度')));
+                CommonWebView(url == null ? 'https://www.baidu.com' : url, '百度')));
   }
 
   static void toMovieDetail(BuildContext context) {
