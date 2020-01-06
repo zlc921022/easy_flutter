@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   shared_preferences: ^0.4.3
   carousel_slider: ^1.1.0
-  dio: ^2.0.20
+  dio: ^3.0.8
   fluttertoast: ^3.0.1
   cached_network_image: ^2.0.0-rc
   flutter_webview_plugin: ^0.3.1
