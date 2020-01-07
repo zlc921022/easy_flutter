@@ -5,22 +5,22 @@ class ActorRepository extends BaseRepository {
 
   /// 影片剧照
   Future<dynamic> getMovieAlbum({String movieId, int start, int count}) async {
-    var result = await get(AppApi.getMovieStagePhoto(movieId),
+    var result = await get(ApiService.getMovieStagePhoto(movieId),
         params: {'start': start, 'count': count});
-    return result.data['photos'];
+    return result;
   }
 
   /// 演员详细信息
   Future<dynamic> getActorDetail(String actorId) async {
-    var result = await get(AppApi.getActorDetail(actorId));
-    return result.data;
+    var result = await get(ApiService.getActorDetail(actorId));
+    return result;
   }
 
   /// 获取演员相册
   Future<dynamic> getActorPhotos({String actorId, int start, int count}) async {
-    var result = await get(AppApi.getActorPhotos(actorId),
+    var result = await get(ApiService.getActorPhotos(actorId),
         params: {'start': start, 'count': count});
-    return result.data['photos'];
+    return result;
   }
 
 }

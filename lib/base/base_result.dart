@@ -1,4 +1,7 @@
 class BaseResult {
   dynamic data;
-  Exception exception;
+  int code;
+  String message;
+
+  BaseResult({this.data, this.code,this.message});
 }

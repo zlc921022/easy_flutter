@@ -1,4 +1,4 @@
-class AppApi {
+class ApiService {
 
   /// 正在热映接口
   /// 参数：start 和 count

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/ui/common/app_color.dart';
 
+/// bannner 小圆点集合
 class BannerCirclePoint extends StatelessWidget {
   final bool _isSelected;
   BannerCirclePoint(this._isSelected);
@@ -14,8 +16,8 @@ class BannerCirclePoint extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: _isSelected
-              ? Color.fromRGBO(0, 0, 0, 0.9)
-              : Color.fromRGBO(0, 0, 0, 0.4)),
+              ? AppColor.white
+              : AppColor.black_99),
     );
   }
 }

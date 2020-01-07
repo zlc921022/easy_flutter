@@ -1,53 +1,49 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/model/movie_banner.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/util/toast.dart';
 import 'package:widget_chain/widget_chain.dart';
 
+/// 首页banner条目
 class BannerItemView extends StatelessWidget {
-  final String imgUrl;
-  final String title;
-  final String zy;
+  final NewsBanner newsBanner;
 
-  BannerItemView(this.imgUrl, this.title, this.zy);
+  BannerItemView(this.newsBanner);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Toast.show('banner点击了');
-        AppNavigator.toWebView(context);
+      onTap: () {
+        AppNavigator.toWebView(context, url: newsBanner.news?.link,title: newsBanner.news?.title);
       },
       child: Stack(
         children: <Widget>[
           Image(
-            image: CachedNetworkImageProvider(imgUrl),
+            image: CachedNetworkImageProvider(newsBanner.news?.cover),
             fit: BoxFit.cover,
             width: Screen.width,
-          ).intoClipRRect(
-            borderRadius: BorderRadius.circular(3)
-          ),
+          ).intoClipRRect(borderRadius: BorderRadius.circular(3)),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Text(title,
+              Text(newsBanner.news?.title,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                       color: AppColor.white)),
               SizedBox(height: 2),
-              Text(zy,
+              Text(newsBanner.news?.summary,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 14, color: AppColor.white)),
             ],
-          ).intoPositioned(left: 0, right: 0, top: 0, bottom: 30),
+          ).intoPositioned(left: 15, right: 15, top: 0, bottom: 30),
         ],
       ).intoContainer(margin: const EdgeInsets.symmetric(horizontal: 5)),
     );
-
   }
 }

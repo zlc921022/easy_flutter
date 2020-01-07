@@ -1,13 +1,16 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_movie/app.dart';
-import 'package:flutter_movie/base/view_model_provider.dart';
+import 'package:flutter_movie/base/provider_widget.dart';
+import 'package:flutter_movie/repository/home_respository.dart';
+import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/viewmodel/home_view_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);
@@ -23,50 +26,39 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-     //把上面的注释，打开下面的注释即可切换查看效果
-      home: ViewModelProvider(
-        viewModel: new HomeViewModel(),
-        child: TestPage(),
-      ),
+      //把上面的注释，打开下面的注释即可切换查看效果
+      home: TestPage(),
     );
   }
 }
 
-class TestPage extends StatefulWidget{
-
+class TestPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return new TestPageState();
   }
-
 }
 
-class TestPageState extends State<TestPage>{
-
-  HomeViewModel viewModel;
-  @override
-  void initState() {
-    super.initState();
-    viewModel = ViewModelProvider.of(context);
-  }
-
+class TestPageState extends State<TestPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: new Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              onPressed: (){
-                viewModel.getComingList(start: 0,count: 20);
-              },
-              child: Text('点击测试'),
-            )
-          ],
-        ),
-      ),
-    );
+    return ProviderWidget<HomeViewModel, HomeRepository>(
+        model: HomeViewModel(),
+        initData: (model) {
+          model.loadData(start: 0, count: 20);
+        },
+        builder: (context, model, child) {
+          if (model.comingData == null) {
+            return Container(
+              color: AppColor.white,
+              child: CupertinoActivityIndicator(),
+            );
+          } else {
+            return Scaffold(
+              backgroundColor: AppColor.white,
+              body: new Center(child: Text('请求成功')),
+            );
+          }
+        });
   }
 }
-

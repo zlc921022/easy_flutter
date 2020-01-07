@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
@@ -7,8 +8,12 @@ import 'package:flutter_movie/ui/home/top_movie_item.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 import '../../util/toast.dart';
-
+/// 影院热映
 class HomeTopMovie extends StatelessWidget {
+
+  List<MovieItem> topMovies;
+  HomeTopMovie(this.topMovies);
+
   @override
   Widget build(BuildContext context) {
     return new Column(
@@ -25,7 +30,7 @@ class HomeTopMovie extends StatelessWidget {
         ),
         GridView.builder(
                 shrinkWrap: true,
-                itemCount: 6,
+                itemCount: topMovies.length,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -33,7 +38,8 @@ class HomeTopMovie extends StatelessWidget {
                     crossAxisSpacing: 12,
                     childAspectRatio: 0.55),
                 itemBuilder: (context, index) {
-                  return TopMovieItem();
+                  var movie = topMovies[index];
+                  return TopMovieItem(movie);
                 })
             .intoContainer(margin: const EdgeInsets.all(12)),
       ],
