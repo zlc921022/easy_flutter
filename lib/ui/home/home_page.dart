@@ -18,9 +18,10 @@ class HomePage extends StatelessWidget {
         builder: (context, model, child) {
           if (model.comingData == null) {
             return new Scaffold(
-              backgroundColor: AppColor.white,
-              body: CupertinoActivityIndicator()
-            );
+                backgroundColor: AppColor.white,
+                body: new Center(
+                  child: CupertinoActivityIndicator(),
+                ));
           }
           return new Scaffold(
             appBar: AppBar(

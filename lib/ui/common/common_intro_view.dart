@@ -6,10 +6,10 @@ import 'package:widget_chain/widget_chain.dart';
 
 class CommonIntroView extends StatelessWidget{
 
-  final String intro;
+  final String summary;
   final bool expand;
   final GestureTapCallback _callback;
-  CommonIntroView(this.intro,this.expand,this._callback);
+  CommonIntroView(this.summary,this.expand,this._callback);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CommonIntroView extends StatelessWidget{
       children: <Widget>[
         CommonSectionTitle('简介'),
         Text(
-          intro,
+          summary,
           maxLines: expand ? null : 4,
           overflow: TextOverflow.clip,
           style: TextStyle(fontSize: 14,color: AppColor.white),

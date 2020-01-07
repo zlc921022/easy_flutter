@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/model/movie_actor_detail.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:widget_chain/widget_chain.dart';
@@ -9,18 +10,16 @@ import 'package:widget_chain/widget_chain.dart';
 import '../../../util/screen.dart';
 
 class ActorDetailHead extends StatelessWidget {
-  final String imageUrl;
-  final String userName;
 
-  ActorDetailHead(this.imageUrl, this.userName);
+  final MovieActorDetail actorDetail;
+  ActorDetailHead(this.actorDetail);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Stack(
       children: <Widget>[
         Image(
-          image: CachedNetworkImageProvider(imageUrl),
+          image: CachedNetworkImageProvider(actorDetail.avatars?.large),
           fit: BoxFit.cover,
           width: Screen.width,
           height: 218,
@@ -50,7 +49,7 @@ class ActorDetailHead extends StatelessWidget {
               ClipOval(
                 child: Image(
                   image: CachedNetworkImageProvider(
-                    imageUrl,
+                    actorDetail.avatars?.small,
                   ),
                   width: 80,
                   height: 80,
@@ -61,7 +60,7 @@ class ActorDetailHead extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                userName,
+                actorDetail.name,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,

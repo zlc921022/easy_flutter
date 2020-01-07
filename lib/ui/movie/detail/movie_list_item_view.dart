@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/model/movie_actor.dart';
+import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
@@ -6,15 +8,15 @@ import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 
 class MovieListItemView extends StatelessWidget {
   final String action;
-  final String imageUrl;
+  final MovieItem movieItem;
 
-  MovieListItemView(this.imageUrl, this.action);
+  MovieListItemView(this.movieItem, this.action);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toMovieDetail(context);
+        AppNavigator.toMovieDetail(context,movieItem: movieItem);
       },
       child: Container(
         color: AppColor.white,
@@ -25,7 +27,7 @@ class MovieListItemView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 CommonRoundedImage(
-                  this.imageUrl,
+                  this.movieItem.images.small,
                   width: 100,
                   height: 100 / 0.75,
                 ),
@@ -39,7 +41,7 @@ class MovieListItemView extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    Text('野猪',
+                    Text(movieItem.title,
                         style: TextStyle(
                             color: AppColor.black_33,
                             fontWeight: FontWeight.bold,
@@ -47,17 +49,18 @@ class MovieListItemView extends StatelessWidget {
                     SizedBox(height: 10),
                     Row(
                       children: <Widget>[
-                        StaticRatingBar(size: 13, rate: 3.8),
+                        StaticRatingBar(
+                            size: 13, rate: movieItem.rating.average / 2),
                         SizedBox(width: 5),
-                        Text('8.8',
+                        Text(movieItem.rating.average.toString(),
                             style: TextStyle(
                                 color: AppColor.black_99, fontSize: 12)),
                       ],
                     ),
                     SizedBox(height: 10),
                     Text(
-                        '2019 / 剧情 家庭 / 王子异\n'
-                        '郑乐成',
+                        '${movieItem.year} /${list2String(movieItem.genres)} / '
+                        '${actor2String(movieItem.directors)}/${actor2String(movieItem.casts)}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style:
@@ -108,10 +111,26 @@ class MovieListItemView extends StatelessWidget {
             borderRadius: BorderRadius.circular(3),
             border: Border.all(color: AppColor.red, width: 1)),
         child: Text(
-          '01月\n10日',
+          '${movieItem?.mainlandPubdate?.split('-')[1]}月\n${movieItem?.mainlandPubdate?.split('-')[2]}日',
           style: TextStyle(fontSize: 14, color: AppColor.red),
         ),
       );
     }
+  }
+
+  String actor2String(List<MovieActor> actors) {
+    StringBuffer sb = new StringBuffer();
+    actors.forEach((actor) {
+      sb.write(' ${actor.name} ');
+    });
+    return sb.toString();
+  }
+
+  String list2String(List list) {
+    StringBuffer sb = new StringBuffer();
+    list.forEach((item) {
+      sb.write(' $item ');
+    });
+    return sb.toString();
   }
 }

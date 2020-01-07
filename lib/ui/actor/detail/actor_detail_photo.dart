@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
@@ -6,13 +7,17 @@ import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 class ActorPhotoView extends StatelessWidget {
-  String imageUrl =
-      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578132145178&di=6f721a62b5e33b57659cdaeed7ced150&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fsoftbbs%2F1103%2F09%2Fc0%2F6952476_1299664187183_1024x1024soft.jpg";
+  final List<MoviePhoto> photos;
+  List<String> images;
+
+  ActorPhotoView(this.photos);
 
   List<Widget> getData(BuildContext context) {
+    images = [];
     List<Widget> data = [];
-    for (int i = 0; i < 6; i++) {
-      data.add(_buildPhotoItem(context,i));
+    for (int i = 0; i < photos.length; i++) {
+      data.add(_buildPhotoItem(context, photos[i], i));
+      images.add(photos[i].cover);
     }
     data.add(_buildLookMore(context));
     return data;
@@ -34,16 +39,14 @@ class ActorPhotoView extends StatelessWidget {
   }
 
   /// 演员相册
-  Widget _buildPhotoItem(BuildContext context,int initIndex) {
-    List<String> images = [];
-    for (int i = 0; i < 6; i++) {
-      images.add(imageUrl);
-    }
+  Widget _buildPhotoItem(
+      BuildContext context, MoviePhoto moviePhoto, int index) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toPhotoViewGallery(context, images, initIndex);
+        AppNavigator.toPhotoViewGallery(context, images, index);
       },
-      child: CommonRoundedImage(imageUrl, width: 120 / 0.75, height: 120),
+      child:
+          CommonRoundedImage(moviePhoto.cover, width: 120 / 0.75, height: 120),
     ).intoContainer(margin: const EdgeInsets.only(left: 15));
   }
 

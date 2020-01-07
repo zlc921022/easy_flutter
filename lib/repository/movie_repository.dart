@@ -26,6 +26,20 @@ class MovieRepository extends BaseRepository {
 
   // 获取电影详情
   Future<dynamic> getMovieDetail(String movieId) async {
-    return await get(ApiService.getMovieDetail());
+    return await get('${ApiService.getMovieDetail()}/$movieId');
+  }
+
+  /// 获取正在上映的电影
+  Future<dynamic> getNowPlayingList({int start, int count}) async {
+    var result = await get(ApiService.getNowPlayingList(),
+        params: {'start': start, 'count': count});
+    return result;
+  }
+
+  /// 获取即将上映电影
+  Future<dynamic> getComingList({int start, int count}) async {
+    var result = await get(ApiService.getComingSoon(),
+        params: {'start': start, 'count': count});
+    return result;
   }
 }

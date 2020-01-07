@@ -1,8 +1,11 @@
-import 'package:flutter_movie/base/base_result.dart';
 import 'package:flutter_movie/base/base_view_model.dart';
+import 'package:flutter_movie/model/movie_actor_detail.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
 
 class ActorViewModel extends BaseViewModel<ActorRepository> {
+
+  MovieActorDetail actorDetail;
+
   @override
   ActorRepository createRepository() {
     return new ActorRepository();
@@ -18,6 +21,7 @@ class ActorViewModel extends BaseViewModel<ActorRepository> {
   /// 演员详细信息
   Future<dynamic> getActorDetail(String actorId) async {
     var result = await requestData(mRepository.getActorDetail(actorId));
+    actorDetail = MovieActorDetail.fromJson(result?.data);
     return result?.data;
   }
 

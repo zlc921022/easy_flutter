@@ -5,14 +5,15 @@ import 'package:flutter_movie/ui/common/common_section_title.dart';
 /// 所属频道
 class MovieDetailChannel extends StatelessWidget {
 
-  List list = ['1','2','3','1','2','3','1','2','3','1','2','3'];
+  final List tags;
+  MovieDetailChannel(this.tags);
 
   Widget _buildChannelItem(String name,int index) {
     return GestureDetector(
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: EdgeInsets.only(left: 15,right: ( index == list.length - 1 ? 15 : 0)),
+        margin: EdgeInsets.only(left: 15,right: ( index == tags.length - 1 ? 15 : 0)),
         child: Row(
           children: <Widget>[
             Text(name, style: TextStyle(fontSize: 13, color: AppColor.white)),
@@ -21,7 +22,7 @@ class MovieDetailChannel extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(
-          color: AppColor.black_99,
+          color: Color(0x66000000),
           borderRadius: BorderRadius.circular(15),
         ),
       ),
@@ -37,10 +38,10 @@ class MovieDetailChannel extends StatelessWidget {
           SizedBox.fromSize(
               size: Size.fromHeight(30),
               child: ListView.builder(
-                  itemCount: list.length,
+                  itemCount: tags.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return _buildChannelItem('宠物',index);
+                    return _buildChannelItem(tags[index],index);
                   })),
         ]);
   }

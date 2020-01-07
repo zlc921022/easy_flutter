@@ -22,12 +22,12 @@ class AppNavigator {
 
   static void toMovieDetail(BuildContext context,{MovieItem movieItem}) {
     Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => MovieDetailList()));
+        new MaterialPageRoute(builder: (context) => MovieDetailList(movieItem.id)));
   }
 
-  static void toActorDetail(BuildContext context) {
+  static void toActorDetail(BuildContext context,String actorId) {
     Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => ActorDetailView()));
+        new MaterialPageRoute(builder: (context) => ActorDetailView(actorId)));
   }
 
   static void toMovieList(BuildContext context, String title, String action) {

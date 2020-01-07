@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/repository/moviel_repository.dart';
+import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/home_title_view.dart';
 import 'package:flutter_movie/ui/home/top_list_item_view.dart';
 import 'package:flutter_movie/viewmodel/movie_view_model.dart';

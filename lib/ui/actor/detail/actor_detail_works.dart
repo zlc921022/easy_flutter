@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/model/movie_actor_work.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
@@ -6,8 +7,9 @@ import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 
 class ActorDetailWorks extends StatelessWidget {
-  String imageUrl =
-      "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578138527882&di=ff4b1b2b5c96eeac744ef6771d670adc&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fpic%2F6%2F89%2F77ca313194.jpg";
+  final List<MovieActorWork> works;
+
+  ActorDetailWorks(this.works);
 
   @override
   Widget build(BuildContext context) {
@@ -20,34 +22,46 @@ class ActorDetailWorks extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 8,
+              itemCount: works?.length,
               itemBuilder: (context, index) {
-                return _buildWorksItem(context, index);
+                var work = works[index];
+                return _buildWorksItem(context, work, index);
               }),
         )
       ],
     );
   }
 
-  Widget _buildWorksItem(BuildContext context, int index) {
+  Widget _buildWorksItem(BuildContext context, MovieActorWork work, int index) {
     return GestureDetector(
       onTap: () {
         AppNavigator.toMovieDetail(context);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 15, right: (index == 7) ? 15 : 0),
+        margin: EdgeInsets.only(left: 15, right: (index == works.length - 1) ? 15 : 0),
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CommonRoundedImage(imageUrl, width: 100, height: 100 / 0.75),
+            CommonRoundedImage(work.movie?.images?.small,
+                width: 100, height: 100 / 0.75),
             SizedBox(height: 5),
-            Text('岁月', style: TextStyle(fontSize: 14, color: AppColor.white)),
+            Container(
+                width: 100,
+                child: Text(work.movie?.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 14, color: AppColor.white)),
+            ),
             SizedBox(height: 5),
             Row(
               children: <Widget>[
-                StaticRatingBar(size: 13, rate: 4.8),
+                StaticRatingBar(
+                    size: 13,
+                    rate: (work?.movie?.rating?.average != null)
+                        ? work.movie.rating.average / 2
+                        : 0),
                 SizedBox(width: 5),
-                Text('9.0',
+                Text(work?.movie?.rating?.average?.toString(),
                     style: TextStyle(fontSize: 12, color: AppColor.white)),
               ],
             )
