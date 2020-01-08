@@ -4,7 +4,6 @@ import 'package:flutter_movie/model/movie_banner.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/util/screen.dart';
-import 'package:flutter_movie/util/toast.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 /// 首页banner条目
@@ -17,7 +16,7 @@ class BannerItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toWebView(context, url: newsBanner.news?.link,title: newsBanner.news?.title);
+        AppNavigator.pushWebView(context, url: newsBanner.news?.link,title: newsBanner.news?.title);
       },
       child: Stack(
         children: <Widget>[

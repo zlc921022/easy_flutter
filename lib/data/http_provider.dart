@@ -25,7 +25,7 @@ class HttpProvider {
   }
 
   ///创建dio网络请求对象
-  static Dio _createDio() {
+  Dio _createDio() {
     final options = BaseOptions(
         baseUrl: baseUrl,
         connectTimeout: 30 * 1000,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:widget_chain/widget_chain.dart';
 
+/// 通用我的页面itemView
 class CommonMyItemView extends StatelessWidget {
   final String icon;
   final String title;
+
+  // 点击事件回调
   final GestureTapCallback callback;
 
   CommonMyItemView(this.icon, this.title, this.callback);
@@ -17,26 +19,28 @@ class CommonMyItemView extends StatelessWidget {
         },
         child: Column(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Image.asset('images/$icon',width: 26,height: 26),
-                SizedBox(width: 15),
-                Text(title,
-                        style:
-                            TextStyle(color: AppColor.black_33, fontSize: 14))
-                    .intoExpanded(),
-                Image.asset('images/icon_arrow_forward.png',
-                    width: 20, height: 20),
-              ],
-            ).intoContainer(
+            Container(
               margin: const EdgeInsets.fromLTRB(10, 15, 15, 15),
+              child: Row(
+                children: <Widget>[
+                  Image.asset('images/$icon', width: 26, height: 26),
+                  SizedBox(width: 15),
+                  Expanded(
+                      child: Text(title,
+                          style: TextStyle(
+                              color: AppColor.black_33, fontSize: 14))),
+                  Image.asset('images/icon_arrow_forward.png',
+                      width: 20, height: 20),
+                ],
+              ),
             ),
-            Divider(
-              height: 1,
-              color: AppColor.black_cc,
-            ).intoContainer(
+            Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
-            )
+              child: Divider(
+                height: 1,
+                color: AppColor.black_cc,
+              ),
+            ),
           ],
         ));
   }

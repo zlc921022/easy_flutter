@@ -55,7 +55,7 @@ class ActorPhotoView extends StatelessWidget {
   Widget _buildLookMore(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toPhotoList(context, '相册', action: 'photos', id: actorId);
+        AppNavigator.pushPhotoList(context, '相册', action: 'photos', id: actorId);
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 8),

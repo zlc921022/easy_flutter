@@ -73,7 +73,7 @@ class MovieDetailHead extends StatelessWidget {
                   SizedBox(height: 5),
                   Row(
                     children: <Widget>[
-                      StaticRatingBar(
+                      CommonRatingBar(
                           size: 13, rate: movieDetail.rating.average / 2),
                       SizedBox(width: 5),
                       Text(movieDetail.rating.average.toString(),

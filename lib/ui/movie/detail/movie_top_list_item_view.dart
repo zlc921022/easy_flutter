@@ -30,7 +30,7 @@ class MovieTopListItemView extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () {
-        AppNavigator.toMovieDetail(context,movieItem: movieItem);
+        AppNavigator.pushMovieDetail(context,movieItem: movieItem);
       },
       child: Container(
         color: AppColor.white,
@@ -74,7 +74,7 @@ class MovieTopListItemView extends StatelessWidget {
                     SizedBox(height: 10),
                     Row(
                       children: <Widget>[
-                        StaticRatingBar(
+                        CommonRatingBar(
                           size: 13,
                           rate: movieItem.rating.average / 2,
                         ),

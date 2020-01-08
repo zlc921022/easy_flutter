@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/base_repository.dart';
-import 'package:flutter_movie/base/base_result.dart';
 import 'package:flutter_movie/base/view_state.dart';
 
+/// 父类ViewModel
 abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
-
   /// 防止页面销毁后,异步任务才完成,导致报错
   bool _disposed = false;
   T mRepository;
@@ -24,12 +23,10 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
     try {
       setState(ViewState.loading);
       var result = await f;
-      if (result is BaseResult) {
-        if (result.code == 200) {
-          setState(ViewState.success);
-        } else {
-          setState(ViewState.error);
-        }
+      if (result.code == 200) {
+        setState(ViewState.success);
+      } else {
+        setState(ViewState.error);
       }
       setState(ViewState.loaded);
       return result;
@@ -41,6 +38,7 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
     }
   }
 
+  /// 提供一个创建Repository对象的抽象方法
   T createRepository();
 
   @override

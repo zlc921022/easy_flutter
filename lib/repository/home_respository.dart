@@ -6,6 +6,7 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' show parse;
 import 'package:http/http.dart' as http;
 
+/// 首页相关的
 class HomeRepository extends BaseRepository {
   ///  获取首页热门新闻文章
   Future<List<MovieNews>> getNewsList() async {

@@ -3,7 +3,9 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 
+/// 电影列表ViewModel
 class MovieListViewModel extends BaseViewModel<MovieRepository> {
+
   /// 电影列表
   List<MovieItem> movieData;
   /// 电影榜单列表

@@ -4,7 +4,6 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 /// 影院热映条目
@@ -18,7 +17,7 @@ class TopMovieItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toMovieDetail(context, movieItem: movieItem);
+        AppNavigator.pushMovieDetail(context, movieItem: movieItem);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +36,7 @@ class TopMovieItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              StaticRatingBar(
+              CommonRatingBar(
                 size: 13,
                 rate: movieItem.rating.average / 2,
               ),

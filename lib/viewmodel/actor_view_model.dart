@@ -9,6 +9,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:palette_generator/palette_generator.dart';
 
+// 演员对应ViewModel
 class ActorViewModel extends BaseViewModel<ActorRepository> {
   MovieActorDetail actorDetail;
   List<MoviePhoto> moviePhotos;

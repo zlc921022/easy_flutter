@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_movie/data/http_provider.dart';
 
 class ApiManager {
-
   ApiManager._internal();
 
   static ApiManager _apiManager;
@@ -17,7 +16,8 @@ class ApiManager {
     return _apiManager;
   }
 
-  static Dio getDio() {
+  /// 获取网络请求dio对象
+  Dio getDio() {
     return HttpProvider.instance.getDio();
   }
 }

@@ -1,3 +1,4 @@
+/// 状态枚举类
 enum ViewState {
   /// 加载中
   loading,
@@ -5,9 +6,9 @@ enum ViewState {
   /// 加载完成
   loaded,
 
-  ///数据返回成功
+  /// 数据返回成功
   success,
 
-  ///数据返回失败
+  /// 数据返回失败
   error,
 }

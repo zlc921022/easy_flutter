@@ -4,6 +4,7 @@ import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:share/share.dart';
 
+/// 通用webView控件
 class CommonWebView extends StatefulWidget {
   final String url;
   final String title;

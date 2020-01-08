@@ -7,41 +7,57 @@ import 'package:flutter_movie/ui/common/common_web_view.dart';
 import 'package:flutter_movie/ui/movie/movie_detail_list.dart';
 import 'package:flutter_movie/ui/movie/movie_list_view.dart';
 
+/// app应用跳转管理
 class AppNavigator {
+  /// 返回
   static void back(BuildContext context) {
     Navigator.pop(context);
   }
 
-  static void toWebView(BuildContext context, {String url, String title}) {
+  /// webView
+  static void pushWebView(BuildContext context, {String url, String title}) {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) =>
-                CommonWebView(url, title ?? title)));
+            builder: (context) => CommonWebView(url, title ?? title)));
   }
 
-  static void toMovieDetail(BuildContext context,{MovieItem movieItem}) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => MovieDetailList(movieItem.id)));
+  /// 电影详情
+  static void pushMovieDetail(BuildContext context, {MovieItem movieItem}) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => MovieDetailList(movieItem.id)));
   }
 
-  static void toActorDetail(BuildContext context,String actorId) {
+  /// 演员详情
+  static void pushActorDetail(BuildContext context, String actorId) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => ActorDetailView(actorId)));
   }
 
-  static void toMovieList(BuildContext context, String title, String action) {
+  /// 电影列表
+  static void pushMovieList(BuildContext context, String title, String action) {
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => MovieListView(action, title)));
   }
 
-  static void toPhotoList(BuildContext context, String title,{String action,String id}) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => ActorPhotosView(title,id,action: action,)));
+  /// 相册列表
+  static void pushPhotoList(BuildContext context, String title,
+      {String action, String id}) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => ActorPhotosView(
+                  title,
+                  id,
+                  action: action,
+                )));
   }
 
+  /// 查看图片
   static void toPhotoViewGallery(
       BuildContext context, List<String> images, int initIndex) {
     Navigator.push(context, new MaterialPageRoute(builder: (context) {

@@ -3,7 +3,7 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
-import 'package:flutter_movie/ui/common/home_title_view.dart';
+import 'package:flutter_movie/ui/common/home_section_title.dart';
 import 'package:flutter_movie/ui/home/coming_movie_item.dart';
 import 'package:widget_chain/widget_chain.dart';
 
@@ -27,9 +27,9 @@ class HomeComingMovieState extends State<HomeComingMovie> {
       children: <Widget>[
         Row(
           children: <Widget>[
-            HomeTitleView('即将上映'),
+            HomeSectionTitle('即将上映'),
             HomeLookAllView(() {
-              AppNavigator.toMovieList(context, '即将上映', 'coming_soon');
+              AppNavigator.pushMovieList(context, '即将上映', 'coming_soon');
             }).intoExpanded(),
           ],
         ),

@@ -1,11 +1,13 @@
+import 'dart:ui' as ui;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/util/screen.dart';
 
 class MyHeadImage extends StatelessWidget {
-  String imageUrl =
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245221011&di=892757de61de9aa2a370a1c124f0f145&imgtype=0&src=http%3A%2F%2Fwww.dmyzw.com%2Fpicture%2Fb8c358776469c150a35d77d775d6c1d6.jpg';
+  final String imageUrl =
+      'http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1205/24/c1/11732978_1337845452078.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +28,29 @@ class MyHeadImage extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(imageUrl),
-              radius: 50.0,
+        BackdropFilter(
+          filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+          child: Container(
+            width: Screen.width,
+            height: 248,
+            color: Colors.transparent,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: CachedNetworkImageProvider(imageUrl),
+                  radius: 50.0,
+                ),
+                SizedBox(height: 10),
+                Text('xiaocheng',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: AppColor.white,
+                        fontWeight: FontWeight.bold))
+              ],
             ),
-            SizedBox(height: 10),
-            Text('郑乐成',
-                style: TextStyle(
-                    fontSize: 14,
-                    color: AppColor.white,
-                    fontWeight: FontWeight.bold))
-          ],
+          ),
         )
       ],
     );

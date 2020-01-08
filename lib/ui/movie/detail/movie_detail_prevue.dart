@@ -93,7 +93,7 @@ class MovieDetailPrevue extends StatelessWidget {
   Widget _buildLookMore(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toPhotoList(context, '剧照', action: 'stills', id: id);
+        AppNavigator.pushPhotoList(context, '剧照', action: 'stills', id: id);
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 8),

@@ -63,7 +63,7 @@ class MovieDetailComment extends StatelessWidget {
                 SizedBox(height: 2),
                 Row(
                   children: <Widget>[
-                    StaticRatingBar(size: 13, rate: comment.rating.value),
+                    CommonRatingBar(size: 13, rate: comment.rating.value),
                     SizedBox(width: 5),
                     Text(comment.time,
                         style: TextStyle(fontSize: 12, color: AppColor.white)),

@@ -35,8 +35,8 @@ class MyPageState extends State<MyPage> with RouteAware {
 
   // 项目地址
   void clickProject() {
-    String url = 'https://github.com/zlc921022/flutter_movie.git';
-    AppNavigator.toWebView(context, url: url);
+    String url = 'https://github.com/zlc921022/flutter_movie';
+    AppNavigator.pushWebView(context, url: url, title: '项目地址');
   }
 
   // 技术交流
@@ -60,6 +60,6 @@ class MyPageState extends State<MyPage> with RouteAware {
 // API文档
   void clickApi() {
     String url = 'https://github.com/Mayandev/morec/blob/master/API.md';
-    AppNavigator.toWebView(context, url: url);
+    AppNavigator.pushWebView(context, url: url, title: 'API文档');
   }
 }

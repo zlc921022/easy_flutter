@@ -1,35 +1,50 @@
-import 'movie_rate.dart';
-import 'movie_image.dart';
-import 'movie_comment.dart';
 import 'movie_actor.dart';
+import 'movie_comment.dart';
+import 'movie_image.dart';
 import 'movie_photo.dart';
+import 'movie_rate.dart';
 import 'movie_trailer.dart';
 
 /// 电影详情
 class MovieDetail {
-
-  MovieRate rating;   // 电影评分
+  MovieRate rating; // 电影评分
   String originalTitle; // 原标题
-  MovieImage images;  // 电影封面
-  String year;        // 上映年份
+  MovieImage images; // 电影封面
+  String year; // 上映年份
   List<MovieComment> comments; // 评论
-  String alt;         // 豆瓣网址
-  String id;          // 电影 id
-  String title;       // 电影标题
-  List pubdates;      // 上映日期
-  List tags;  // 电影标签
+  String alt; // 豆瓣网址
+  String id; // 电影 id
+  String title; // 电影标题
+  List pubdates; // 上映日期
+  List tags; // 电影标签
   List durations;
-  List genres;  // 电影类型
-  List<MovieTrailer> trailers;  // 预告片 url
-  List<MovieActor> casts;    // 演员
+  List genres; // 电影类型
+  List<MovieTrailer> trailers; // 预告片 url
+  List<MovieActor> casts; // 演员
   List<MovieActor> directors; // 导演
-  List countries;     // 国家
-  List<MoviePhoto> photos;    // 剧照
-  String summary;     // 电影简介
+  List countries; // 国家
+  List<MoviePhoto> photos; // 剧照
+  String summary; // 电影简介
 
-  MovieDetail(this.rating, this.originalTitle, this.images, this.year, this.comments, this.alt, this.id,
-     this.title, this.pubdates, this.tags, this.durations, this.genres, this.trailers, this.casts, this.directors,
-     this.countries, this.photos, this.summary);
+  MovieDetail(
+      this.rating,
+      this.originalTitle,
+      this.images,
+      this.year,
+      this.comments,
+      this.alt,
+      this.id,
+      this.title,
+      this.pubdates,
+      this.tags,
+      this.durations,
+      this.genres,
+      this.trailers,
+      this.casts,
+      this.directors,
+      this.countries,
+      this.photos,
+      this.summary);
 
   MovieDetail.fromJson(Map data) {
     rating = MovieRate.fromJson(data['rating']);
@@ -45,7 +60,7 @@ class MovieDetail {
     genres = data['genres']?.cast<String>()?.toList();
     countries = data['countries']?.cast<String>()?.toList();
     summary = data['summary'];
-    
+
     List<MovieComment> commentData = [];
     List<MovieActor> castsData = [];
     List<MovieActor> directorsData = [];
@@ -70,9 +85,8 @@ class MovieDetail {
 
     comments = commentData;
     casts = castsData;
-    directors = directorsData;  
+    directors = directorsData;
     photos = photosData;
     trailers = trailerData;
   }
-
 }

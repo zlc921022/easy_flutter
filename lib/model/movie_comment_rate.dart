@@ -1,4 +1,3 @@
-
 /// 评论者评分
 class MovieCommentRate {
   double max;

@@ -4,6 +4,7 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/home_respository.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 
+/// 首页ViewModel
 class HomeViewModel extends BaseViewModel<HomeRepository> {
 
   List<NewsBanner> newsBannerData;

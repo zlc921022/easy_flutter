@@ -3,11 +3,9 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
-import 'package:flutter_movie/ui/common/home_title_view.dart';
+import 'package:flutter_movie/ui/common/home_section_title.dart';
 import 'package:flutter_movie/ui/home/top_movie_item.dart';
 import 'package:widget_chain/widget_chain.dart';
-
-import '../../util/toast.dart';
 /// 影院热映
 class HomeTopMovie extends StatelessWidget {
 
@@ -20,10 +18,10 @@ class HomeTopMovie extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            HomeTitleView('影院热映'),
+            HomeSectionTitle('影院热映'),
             HomeLookAllView(
               () {
-                AppNavigator.toMovieList(context,'影院热映','top_movie');
+                AppNavigator.pushMovieList(context,'影院热映','top_movie');
               },
             ).intoExpanded(),
           ],

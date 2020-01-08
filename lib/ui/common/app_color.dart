@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// app颜色定义统一管理
 class AppColor{
   static Color primary = Color(0xFF5C5C5C);
   static Color secondary = Color(0xFF51DEC6);

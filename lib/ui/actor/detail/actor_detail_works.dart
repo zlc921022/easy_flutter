@@ -35,7 +35,7 @@ class ActorDetailWorks extends StatelessWidget {
   Widget _buildWorksItem(BuildContext context, MovieActorWork work, int index) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toMovieDetail(context,movieItem: work.movie);
+        AppNavigator.pushMovieDetail(context,movieItem: work.movie);
       },
       child: Container(
         margin: EdgeInsets.only(left: 15, right: (index == works.length - 1) ? 15 : 0),
@@ -55,7 +55,7 @@ class ActorDetailWorks extends StatelessWidget {
             SizedBox(height: 5),
             Row(
               children: <Widget>[
-                StaticRatingBar(
+                CommonRatingBar(
                     size: 13,
                     rate: (work?.movie?.rating?.average != null)
                         ? work.movie.rating.average / 2

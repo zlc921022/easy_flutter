@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+/// 通用图片查看控件
 class CommonPhotoView extends StatefulWidget {
-  List<String> imageUrls;
+  final List<String> imageUrls;
   final PageController pageController;
   final int initIndex;
 

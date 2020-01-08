@@ -7,7 +7,8 @@ const int kNumberOfStarts = 5;
 const double kSpacing = 3.0;
 const double kSize = 50.0;
 
-class StaticRatingBar extends StatelessWidget {
+/// 通用评分星星组件
+class CommonRatingBar extends StatelessWidget {
   // 星星数量
   final int count;
 
@@ -21,23 +22,22 @@ class StaticRatingBar extends StatelessWidget {
   final Color colorDark;
   final double size;
 
-  StaticRatingBar({count, rate, colorLight, colorDark, this.size = kSize})
+  CommonRatingBar({count, rate, colorLight, colorDark, this.size = kSize})
       : count = count ?? kNumberOfStarts,
         rate = rate ?? kMaxRate,
         colorLight = colorLight ?? new Color(0xffFF962E),
         colorDark = colorDark ?? new Color(0xffeeeeee);
 
-  Widget buildStar(){
+  Widget buildStar() {
     return SizedBox(
       width: size * count,
       height: size,
       child: new CustomPaint(
         painter: new _PainterStars(
-          size: this.size / 2,
-          color: colorLight,
-          style: PaintingStyle.fill,
-          storkeWidth: 0.0
-        ),
+            size: this.size / 2,
+            color: colorLight,
+            style: PaintingStyle.fill,
+            storkeWidth: 0.0),
       ),
     );
   }

@@ -42,7 +42,7 @@ class MovieDetailCast extends StatelessWidget {
   Widget _buildCastItem(BuildContext context, MovieActor actor, int index) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toActorDetail(context,actor.id);
+        AppNavigator.pushActorDetail(context,actor.id);
       },
       child: Container(
         margin:

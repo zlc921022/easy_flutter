@@ -7,9 +7,9 @@ class MovieImage {
 
   MovieImage(this.small, this.medium, this.large);
 
-  MovieImage.fromJson(Map data) {   
+  MovieImage.fromJson(Map data) {
     small = data['small'];
     medium = data['medium'];
     large = data['large'];
-  } 
+  }
 }

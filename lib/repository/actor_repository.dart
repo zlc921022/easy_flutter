@@ -1,6 +1,6 @@
 import 'package:flutter_movie/base/base_repository.dart';
 import 'package:flutter_movie/data/api/app_api.dart';
-
+/// 演员相关的
 class ActorRepository extends BaseRepository {
 
   /// 影片剧照

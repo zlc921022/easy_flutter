@@ -6,7 +6,6 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 import 'package:flutter_movie/ui/movie/movie_top_list_view.dart';
 import 'package:flutter_movie/util/screen.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 class TopListItemView extends StatelessWidget {
@@ -98,7 +97,7 @@ class TopListItemView extends StatelessWidget {
         Text('${index + 1}. ${movieItem.title}',
                 style: TextStyle(fontSize: 11, color: AppColor.white))
             .intoExpanded(),
-        StaticRatingBar(size: 13, rate: movieItem.rating.average / 2),
+        CommonRatingBar(size: 13, rate: movieItem.rating.average / 2),
         SizedBox(width: 5),
         Text(movieItem.rating.average.toString(),
             style: TextStyle(fontSize: 11, color: AppColor.white)),

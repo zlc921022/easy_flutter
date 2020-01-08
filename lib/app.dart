@@ -4,6 +4,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/home/home_page.dart';
 import 'package:flutter_movie/ui/my/my_page.dart';
 
+/// app首页
 class App extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -12,6 +13,7 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
+
   int _currentIndex = 0;
 
   /// 未选中的图片
@@ -47,7 +49,6 @@ class AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new MaterialApp(
       home: new Scaffold(
           bottomNavigationBar: CupertinoTabBar(

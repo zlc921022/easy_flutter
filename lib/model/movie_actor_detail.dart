@@ -1,16 +1,15 @@
+import 'movie_actor_work.dart';
 import 'movie_image.dart';
 import 'movie_photo.dart';
-import 'movie_actor_work.dart';
 
 /// 演员详情
 class MovieActorDetail {
-  
   String name;
   String enName;
   String gender;
   List professions;
   MovieImage avatars;
-  List<MoviePhoto> photos;    // 剧照
+  List<MoviePhoto> photos; // 剧照
   String birthday;
   List aka; // 外号
   String bornPlace;
@@ -19,19 +18,31 @@ class MovieActorDetail {
   List<MovieActorWork> works;
   String summary;
 
-
-  MovieActorDetail(this.name, this.enName, this.gender, this.professions, this.avatars, 
-    this.photos, this.birthday, this.aka, this.bornPlace, this.constellation, this.id, 
-    this.works, this.summary);
+  MovieActorDetail(
+      this.name,
+      this.enName,
+      this.gender,
+      this.professions,
+      this.avatars,
+      this.photos,
+      this.birthday,
+      this.aka,
+      this.bornPlace,
+      this.constellation,
+      this.id,
+      this.works,
+      this.summary);
 
   MovieActorDetail.fromJson(Map data) {
-    String avatarPlaceholder = 'http://img3.doubanio.com/f/movie/ca527386eb8c4e325611e22dfcb04cc116d6b423/pics/movie/celebrity-default-small.png';    
+    String avatarPlaceholder =
+        'http://img3.doubanio.com/f/movie/ca527386eb8c4e325611e22dfcb04cc116d6b423/pics/movie/celebrity-default-small.png';
     name = data['name'];
     enName = data['enName'];
     gender = data['gender'];
     professions = data['professions']?.cast<String>()?.toList();
     if (data['avatars'] == null) {
-      avatars = new MovieImage(avatarPlaceholder, avatarPlaceholder, avatarPlaceholder);
+      avatars = new MovieImage(
+          avatarPlaceholder, avatarPlaceholder, avatarPlaceholder);
     } else {
       avatars = MovieImage.fromJson(data['avatars']);
     }
@@ -55,8 +66,5 @@ class MovieActorDetail {
 
     photos = photosData;
     works = worksData;
-
-
   }
-
 }

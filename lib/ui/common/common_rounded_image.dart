@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_chain/widget_chain.dart';
 
+/// 通用圆角图片控件
 class CommonRoundedImage extends StatelessWidget {
   final String imageUrl;
-  double width;
-  double height;
+  final double width;
+  final double height;
 
   CommonRoundedImage(this.imageUrl, {this.width, this.height});
 

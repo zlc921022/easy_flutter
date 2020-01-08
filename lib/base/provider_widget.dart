@@ -3,14 +3,18 @@ import 'package:flutter_movie/base/base_repository.dart';
 import 'package:flutter_movie/base/base_view_model.dart';
 import 'package:provider/provider.dart';
 
-class ProviderWidget<T extends BaseViewModel<V>,V extends BaseRepository> extends StatefulWidget {
+class ProviderWidget<T extends BaseViewModel<V>, V extends BaseRepository>
+    extends StatefulWidget {
+  /// viewModel
   final T model;
   final ValueWidgetBuilder<T> builder;
   final Widget child;
+
+  /// 初始化数据
   final Function(T model) initData;
 
   @override
-  State<StatefulWidget> createState() => _ProviderWidgetState<T,V>();
+  State<StatefulWidget> createState() => _ProviderWidgetState<T, V>();
 
   ProviderWidget(
       {@required this.model,
@@ -19,13 +23,14 @@ class ProviderWidget<T extends BaseViewModel<V>,V extends BaseRepository> extend
       this.initData});
 }
 
-class _ProviderWidgetState<T extends BaseViewModel<V>,V extends BaseRepository>
-    extends State<ProviderWidget<T,V>> {
+class _ProviderWidgetState<T extends BaseViewModel<V>, V extends BaseRepository>
+    extends State<ProviderWidget<T, V>> {
   T model;
 
   @override
   void initState() {
     model = widget.model;
+    // 执行initData方法
     widget.initData?.call(model);
     super.initState();
   }

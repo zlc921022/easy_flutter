@@ -3,6 +3,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/util/screen.dart';
 
+/// 通用标题View
 class CommonTitleView extends StatelessWidget {
   final double navAlpha;
   final String title;

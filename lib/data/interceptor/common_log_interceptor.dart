@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+/// 通用日志拦截器
 class CommonLogInterceptor extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) {

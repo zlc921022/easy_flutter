@@ -1,7 +1,6 @@
-
+import 'movie_actor.dart';
 import 'movie_image.dart';
 import 'movie_rate.dart';
-import 'movie_actor.dart';
 
 class MovieItem {
   List genres;

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+/// 添加通用请求头拦截器
 class CommonHeaderInterceptor extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) {
