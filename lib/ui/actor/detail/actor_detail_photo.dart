@@ -8,9 +8,10 @@ import 'package:widget_chain/widget_chain.dart';
 
 class ActorPhotoView extends StatelessWidget {
   final List<MoviePhoto> photos;
+  final String actorId;
   List<String> images;
 
-  ActorPhotoView(this.photos);
+  ActorPhotoView(this.photos, this.actorId);
 
   List<Widget> getData(BuildContext context) {
     images = [];
@@ -54,7 +55,7 @@ class ActorPhotoView extends StatelessWidget {
   Widget _buildLookMore(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toPhotoList(context, '相册');
+        AppNavigator.toPhotoList(context, '相册', action: 'photos', id: actorId);
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 8),

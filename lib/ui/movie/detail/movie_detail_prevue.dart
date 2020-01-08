@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/model/movie_trailer.dart';
@@ -9,12 +10,13 @@ import 'package:flutter_movie/ui/movie/video_play_view.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 class MovieDetailPrevue extends StatelessWidget {
-  List<MovieTrailer> trailers;
-  List<MoviePhoto> photos;
+  final List<MovieTrailer> trailers;
+  final List<MoviePhoto> photos;
   List<String> imgUrls;
-  String id;
+  final String id;
+  final String title;
 
-  MovieDetailPrevue(this.trailers, this.photos, this.id);
+  MovieDetailPrevue(this.trailers, this.photos, this.id, {this.title});
 
   List<Widget> getData(BuildContext context) {
     List<Widget> data = [];
@@ -47,29 +49,34 @@ class MovieDetailPrevue extends StatelessWidget {
 
   /// 电影预告片
   Widget _buildStillItem(BuildContext context, MovieTrailer trailer) {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        CommonRoundedImage(trailer.cover, width: 120 / 0.75, height: 120),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return new VideoPlayView();
-            }));
-          },
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: AppColor.black_cc,
-              ),
-              Icon(Icons.play_arrow, color: AppColor.white)
-            ],
-          ),
-        )
-      ],
-    ).intoContainer(margin: EdgeInsets.only(left: 15));
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+                builder: (context) =>
+                    VideoPlayView(url: trailer.trailerUrl, title: title)));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(left: 15),
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            CommonRoundedImage(trailer.cover, width: 120 / 0.75, height: 120),
+            Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Color(0xd0000000),
+                ),
+                Icon(Icons.play_arrow, color: AppColor.white)
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   /// 电影剧照
@@ -86,7 +93,7 @@ class MovieDetailPrevue extends StatelessWidget {
   Widget _buildLookMore(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toPhotoList(context, '剧照');
+        AppNavigator.toPhotoList(context, '剧照', action: 'stills', id: id);
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 8),

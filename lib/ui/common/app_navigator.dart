@@ -37,9 +37,9 @@ class AppNavigator {
             builder: (context) => MovieListView(action, title)));
   }
 
-  static void toPhotoList(BuildContext context, String title) {
+  static void toPhotoList(BuildContext context, String title,{String action,String id}) {
     Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => ActorPhotosView(title)));
+        new MaterialPageRoute(builder: (context) => ActorPhotosView(title,id,action: action,)));
   }
 
   static void toPhotoViewGallery(

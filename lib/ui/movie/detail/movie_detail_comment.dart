@@ -6,8 +6,8 @@ import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 import 'package:widget_chain/widget_chain.dart';
 
 class MovieDetailComment extends StatelessWidget {
+  final List<MovieComment> comments;
 
-  List<MovieComment> comments;
   MovieDetailComment(this.comments);
 
   @override
@@ -19,16 +19,14 @@ class MovieDetailComment extends StatelessWidget {
           color: Color(0x66000000),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Opacity(
-            opacity: 0.7,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  CommonSectionTitle('短评'),
-                  Column(
-                    children: getData(),
-                  ),
-                ])));
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              CommonSectionTitle('短评'),
+              Column(
+                children: getData(),
+              ),
+            ]));
   }
 
   List<Widget> getData() {
@@ -76,7 +74,8 @@ class MovieDetailComment extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10),
-        Text(comment.content, style: TextStyle(fontSize: 14, color: AppColor.white)),
+        Text(comment.content,
+            style: TextStyle(fontSize: 14, color: AppColor.white)),
         SizedBox(height: 10),
         Row(
           children: <Widget>[

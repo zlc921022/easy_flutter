@@ -1,12 +1,8 @@
 import 'package:dio/dio.dart';
 
 class CommonParamInterceptor extends InterceptorsWrapper {
-  Map<String, dynamic> _commonParams = new Map();
 
-  CommonParamInterceptor() {
-    _commonParams['token'] = '11';
-    _commonParams['id'] = '22';
-  }
+  CommonParamInterceptor();
 
   @override
   Future onRequest(RequestOptions options) {
@@ -21,27 +17,32 @@ class CommonParamInterceptor extends InterceptorsWrapper {
 
   Map<String, dynamic> _getAddParams(RequestOptions options) {
     var params = options.queryParameters;
+    var commonParams = getCommonParams();
     for (String key in params.keys) {
-      if (!_commonParams.containsKey(key)) {
-        _commonParams[key] = params[key];
-      }
+      commonParams[key] = params[key];
     }
-    return _commonParams;
+    return commonParams;
   }
 
   Map<String, dynamic> _postAddParams(RequestOptions options) {
     var newData = new RequestOptions().data;
     var data = options.data;
+    var commonParams = getCommonParams();
     // 添加通用元素
-    for (String key in _commonParams.keys) {
-      newData[key] = _commonParams[key];
+    for (String key in commonParams.keys) {
+      newData[key] = commonParams[key];
     }
     // 参数回填
     for (String key in data.keys) {
-      if (!newData.containsKey(key)) {
-        newData[key] = data[key];
-      }
+      newData[key] = data[key];
     }
     return newData;
+  }
+
+  Map<String, dynamic> getCommonParams() {
+    Map<String, dynamic> _commonParams = new Map();
+    _commonParams['token'] = '11';
+    _commonParams['id'] = '22';
+    return _commonParams;
   }
 }

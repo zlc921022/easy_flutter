@@ -28,8 +28,8 @@ class HttpProvider {
   static Dio _createDio() {
     final options = BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: 10 * 1000,
-        receiveTimeout: 10 * 1000,
+        connectTimeout: 30 * 1000,
+        receiveTimeout: 30 * 1000,
         queryParameters: {"apikey": apiKey});
     final dio = new Dio(options);
     // 添加通用拦截器

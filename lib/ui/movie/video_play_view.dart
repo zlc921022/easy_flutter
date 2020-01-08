@@ -1,10 +1,17 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_title_view.dart';
+import 'package:flutter_movie/util/screen.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayView extends StatefulWidget {
+  final String url;
+  final String title;
+  VideoPlayView({@required this.url,this.title});
+
   @override
   State<StatefulWidget> createState() {
     return new VideoPlayViewState();
@@ -12,14 +19,13 @@ class VideoPlayView extends StatefulWidget {
 }
 
 class VideoPlayViewState extends State<VideoPlayView> {
-  String url = "http://vt1.doubanio.com/202001052046/8809c21648b5285cdcb557863191927c/view/movie/M/302570352.mp4";
   VideoPlayerController videoPlayerController;
   ChewieController chewieController;
 
   @override
   void initState() {
     super.initState();
-    videoPlayerController = new VideoPlayerController.network(url);
+    videoPlayerController = new VideoPlayerController.network(widget.url);
     chewieController = new ChewieController(
       videoPlayerController: videoPlayerController,
       autoPlay: true,
@@ -38,7 +44,18 @@ class VideoPlayViewState extends State<VideoPlayView> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: CommonAppBar(context,'视频播放'),
+      appBar: AppBar(
+        backgroundColor: AppColor.black,
+        leading: GestureDetector(
+          onTap: (){
+            AppNavigator.back(context);
+          },
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+            child: Image.asset('images/icon_arrow_back_white.png'),
+          ),
+        ),
+      ),
       body: Container(
         color: AppColor.black,
         child: Chewie(

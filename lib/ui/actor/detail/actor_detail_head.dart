@@ -32,12 +32,6 @@ class ActorDetailHead extends StatelessWidget {
             height: 218,
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            AppNavigator.back(context);
-          },
-          child: Image.asset('images/icon_arrow_back_white.png'),
-        ).intoContainer(margin: EdgeInsets.only(left: 15, top: 15)),
         Container(
           margin: const EdgeInsets.only(top: 15),
           alignment: Alignment.center,

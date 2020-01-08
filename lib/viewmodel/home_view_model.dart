@@ -29,7 +29,7 @@ class HomeViewModel extends BaseViewModel<HomeRepository> {
     return await mRepository.getNewsList();
   }
 
-  void loadData({int start, int count}) async {
+  Future<dynamic> loadData({int start, int count}) async {
     await requestData(_loadData(start: start, count: count));
   }
 

@@ -4,7 +4,7 @@ import 'package:widget_chain/widget_chain.dart';
 
 class HomeLookAllView extends StatelessWidget {
 
-  GestureTapCallback _callback;
+  final GestureTapCallback _callback;
   HomeLookAllView(this._callback);
 
   @override

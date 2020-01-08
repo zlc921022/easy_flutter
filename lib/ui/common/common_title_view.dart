@@ -27,6 +27,8 @@ class CommonAppBar extends AppBar {
   @override
   Widget get title => Text(
         mTitle,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(fontSize: 16, color: AppColor.black),
       );
 

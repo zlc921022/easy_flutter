@@ -4,7 +4,7 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/model/movie_top_bannner.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
-import 'package:flutter_movie/ui/movie/detail/movie_top_list_view.dart';
+import 'package:flutter_movie/ui/movie/movie_top_list_view.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:widget_chain/widget_chain.dart';
@@ -19,7 +19,7 @@ class TopListItemView extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           Navigator.push(context, new MaterialPageRoute(builder: (context) {
-            return new MovieTopListView();
+            return new MovieTopListView(topBanner.title,topBanner.subTitle,topBanner.movies[0]?.images?.medium,topBanner.action);
           }));
         },
         child: Column(
