@@ -35,7 +35,7 @@ class ActorDetailWorks extends StatelessWidget {
   Widget _buildWorksItem(BuildContext context, MovieActorWork work, int index) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.toMovieDetail(context);
+        AppNavigator.toMovieDetail(context,movieItem: work.movie);
       },
       child: Container(
         margin: EdgeInsets.only(left: 15, right: (index == works.length - 1) ? 15 : 0),
