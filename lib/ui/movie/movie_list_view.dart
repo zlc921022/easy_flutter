@@ -4,7 +4,7 @@ import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:flutter_movie/ui/common/common_title_view.dart';
+import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_list_item_view.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:flutter_movie/viewmodel/movie_list_view_model.dart';

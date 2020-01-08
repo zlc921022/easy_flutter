@@ -4,10 +4,9 @@ import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:flutter_movie/ui/common/app_navigator.dart';
+import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_top_head_view.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_list_view_model.dart';
 
 import 'detail/movie_top_list_item_view.dart';
@@ -132,7 +131,12 @@ class MovieTopListViewState extends State<MovieTopListView> {
                       _buildMovieItem(),
                     ],
                   ),
-                  _buildNavigationBar(widget.title)
+                  CommonTitleView(
+                    widget.title,
+                    navAlpha,
+                    localImg: 'images/icon_arrow_back_black.png',
+                    titleColor: AppColor.black,
+                  )
                 ],
               ),
             ),
@@ -156,52 +160,6 @@ class MovieTopListViewState extends State<MovieTopListView> {
     }
     return Column(
       children: childrens,
-    );
-  }
-
-
-  Widget _buildNavigationBar(String title) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: 44,
-          height: Screen.navigationBarHeight,
-          padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
-          child: GestureDetector(
-            onTap: () {
-              AppNavigator.back(context);
-            },
-            child: Image.asset('images/icon_arrow_back_white.png'),
-          ),
-        ),
-        Opacity(
-          opacity: navAlpha,
-          child: Container(
-            padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
-            decoration: BoxDecoration(color: AppColor.white),
-            width: Screen.width,
-            height: Screen.navigationBarHeight,
-            child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    AppNavigator.back(context);
-                  },
-                  child: Image.asset('images/icon_arrow_back_black.png'),
-                ),
-                Expanded(
-                    child: Text(title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.black))),
-
-              ],
-            ),
-          ),
-        )
-      ],
     );
   }
 }

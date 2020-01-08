@@ -30,7 +30,7 @@ class MovieTopListItemView extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () {
-        AppNavigator.toMovieDetail(context);
+        AppNavigator.toMovieDetail(context,movieItem: movieItem);
       },
       child: Container(
         color: AppColor.white,

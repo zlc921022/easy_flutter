@@ -5,7 +5,7 @@ import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:flutter_movie/ui/common/common_title_view.dart';
+import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/viewmodel/actor_view_model.dart';
 
 class ActorPhotosView extends StatelessWidget {

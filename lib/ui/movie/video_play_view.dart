@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:flutter_movie/ui/common/common_title_view.dart';
+import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:video_player/video_player.dart';
 

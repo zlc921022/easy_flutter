@@ -9,6 +9,7 @@ import 'package:flutter_movie/ui/actor/detail/actor_detail_works.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_intro_view.dart';
+import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/actor_view_model.dart';
 
@@ -79,56 +80,12 @@ class ActorDetailViewState extends State<ActorDetailView> {
                       new ActorPhotoView(model.actorDetail.photos,model.actorDetail.id),
                     ],
                   ),
-                  _buildNavigationBar(model.actorDetail.name, model.actorDetailPageColor),
+                  CommonTitleView(model.actorDetail.name, navAlpha,
+                      pageColor: model.actorDetailPageColor),
                   //  CommonTitleView('测试'),
                 ],
               ));
         });
-  }
-
-  Widget _buildNavigationBar(String title, Color pageColor) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: 44,
-          height: Screen.navigationBarHeight,
-          padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
-          child: GestureDetector(
-            onTap: () {
-              AppNavigator.back(context);
-            },
-            child: Image.asset('images/icon_arrow_back_white.png'),
-          ),
-        ),
-        Opacity(
-          opacity: navAlpha,
-          child: Container(
-            padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
-            decoration: BoxDecoration(color: pageColor),
-            width: Screen.width,
-            height: Screen.navigationBarHeight,
-            child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    AppNavigator.back(context);
-                  },
-                  child: Image.asset('images/icon_arrow_back_white.png'),
-                ),
-                Expanded(
-                    child: Text(title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.white))),
-
-              ],
-            ),
-          ),
-        )
-      ],
-    );
   }
 
   void clickShowAll() {

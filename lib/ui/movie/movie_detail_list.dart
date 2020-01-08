@@ -1,12 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_intro_view.dart';
+import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_cast.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_channel.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_comment.dart';
@@ -77,8 +76,8 @@ class MovieDetailListState extends State<MovieDetailList> {
                   ListView(
                     controller: scrollController,
                     children: <Widget>[
-                      new MovieDetailHead(
-                          model.movieDetail, model.movieDetailPageColor,navAlpha),
+                      new MovieDetailHead(model.movieDetail,
+                          model.movieDetailPageColor, navAlpha),
                       new MovieDetailChannel(model.movieDetail.tags),
                       new CommonIntroView(
                           model.movieDetail.summary, expand, clickShowAll),
@@ -90,56 +89,11 @@ class MovieDetailListState extends State<MovieDetailList> {
                       new MovieDetailComment(model.movieDetail.comments),
                     ],
                   ),
-                  _buildNavigationBar(
-                      model.movieDetail.title, model.movieDetailPageColor),
+                  CommonTitleView(model.movieDetail.title, navAlpha,
+                      pageColor: model.movieDetailPageColor),
                 ],
               ));
         });
-  }
-
-  Widget _buildNavigationBar(String title, Color pageColor) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: 44,
-          height: Screen.navigationBarHeight,
-          padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
-          child: GestureDetector(
-            onTap: () {
-              AppNavigator.back(context);
-            },
-            child: Image.asset('images/icon_arrow_back_white.png'),
-          ),
-        ),
-        Opacity(
-          opacity: navAlpha,
-          child: Container(
-            padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
-            decoration: BoxDecoration(color: pageColor),
-            width: Screen.width,
-            height: Screen.navigationBarHeight,
-            child: Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    AppNavigator.back(context);
-                  },
-                  child: Image.asset('images/icon_arrow_back_white.png'),
-                ),
-                Expanded(
-                    child: Text(title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.white))),
-
-              ],
-            ),
-          ),
-        )
-      ],
-    );
   }
 
   void clickShowAll() {
