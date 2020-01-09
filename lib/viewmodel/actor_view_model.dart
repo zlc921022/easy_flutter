@@ -2,7 +2,7 @@ import 'package:flutter_movie/base/base_view_model.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
 
-// 演员对应ViewModel
+/// 演员对应ViewModel
 class ActorViewModel extends BaseViewModel<ActorRepository> {
   /// 影片剧照
   Future<dynamic> getMovieAlbum({String movieId, int start, int count}) async {

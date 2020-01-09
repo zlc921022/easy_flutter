@@ -7,7 +7,7 @@ import 'package:flutter_movie/util/screen.dart';
 
 class MyHeadImage extends StatelessWidget {
   final String imageUrl =
-      'http://img.pconline.com.cn/images/upload/upc/tx/wallpaper/1205/24/c1/11732978_1337845452078.jpg';
+      'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3796085848,2512140654&fm=26&gp=0.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class MyHeadImage extends StatelessWidget {
                   radius: 50.0,
                 ),
                 SizedBox(height: 10),
-                Text('xiaocheng',
+                Text('小薇',
                     style: TextStyle(
                         fontSize: 14,
                         color: AppColor.white,

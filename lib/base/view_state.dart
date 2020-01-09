@@ -6,9 +6,9 @@ enum ViewState {
   /// 加载完成
   loaded,
 
-  /// 数据返回成功
+  /// 数据加载成功
   success,
 
-  /// 数据返回失败
-  error,
+  /// 数据加载失败
+  error
 }

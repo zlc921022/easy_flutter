@@ -1,9 +1,11 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
+import 'package:flutter_movie/util/screen.dart';
 import 'package:video_player/video_player.dart';
-
+/// 视频播放View
 class VideoPlayView extends StatefulWidget {
   final String url;
   final String title;
@@ -41,25 +43,26 @@ class VideoPlayViewState extends State<VideoPlayView> {
 
   @override
   Widget build(BuildContext context) {
+    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return new Scaffold(
-      backgroundColor: AppColor.black,
-      appBar: AppBar(
-        backgroundColor: AppColor.black,
-        leading: GestureDetector(
+        body: Stack(
+      children: <Widget>[
+        Container(
+          color: AppColor.black,
+          child: Chewie(
+            controller: chewieController,
+          ),
+        ),
+        GestureDetector(
           onTap: () {
             AppNavigator.back(context);
           },
           child: Container(
-            margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+            margin: const EdgeInsets.fromLTRB(15, 40, 0, 0),
             child: Image.asset('images/icon_arrow_back_white.png'),
           ),
-        ),
-      ),
-      body: Container(
-        child: Chewie(
-          controller: chewieController,
-        ),
-      ),
-    );
+        )
+      ],
+    ));
   }
 }

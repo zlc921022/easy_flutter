@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/base_repository.dart';
+import 'package:flutter_movie/base/base_result.dart';
 import 'package:flutter_movie/base/view_state.dart';
 
 /// 父类ViewModel
@@ -18,7 +19,7 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   /// 通用请求数据方法
   Future<dynamic> requestData(Future<dynamic> f) async {
     if (_disposed) {
-      return null;
+      return BaseResult(code: 500);
     }
     try {
       setState(ViewState.loading);
@@ -32,9 +33,8 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
       return result;
     } catch (e) {
       print(e.toString());
-      setState(ViewState.error);
       setState(ViewState.loaded);
-      return null;
+      return BaseResult(code: 500);
     }
   }
 
