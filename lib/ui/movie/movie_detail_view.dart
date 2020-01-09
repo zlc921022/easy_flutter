@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
+import 'package:flutter_movie/base/view_state.dart';
+import 'package:flutter_movie/model/movie_detail.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_intro_view.dart';
@@ -11,31 +13,33 @@ import 'package:flutter_movie/ui/movie/detail/movie_detail_channel.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_comment.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_head.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_prevue.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_view_model.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 /// 电影详情
-class MovieDetailList extends StatefulWidget {
+class MovieDetailView extends StatefulWidget {
   final String movieId;
 
-  MovieDetailList(this.movieId);
+  MovieDetailView(this.movieId);
 
   @override
   State<StatefulWidget> createState() {
-    return new MovieDetailListState();
+    return new MovieDetailViewState();
   }
 }
 
-class MovieDetailListState extends State<MovieDetailList> {
+class MovieDetailViewState extends State<MovieDetailView> {
   bool expand = false;
-  ScrollController scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController();
   double navAlpha = 0;
+  MovieDetail movieDetail;
+  Color pageColor = AppColor.white;
 
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(() {
-      var offset = scrollController.offset;
+    _scrollController.addListener(() {
+      var offset = _scrollController.offset;
       if (offset < 0 && navAlpha != 0) {
         setState(() {
           navAlpha = 0;
@@ -54,15 +58,13 @@ class MovieDetailListState extends State<MovieDetailList> {
 
   @override
   Widget build(BuildContext context) {
-    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return ProviderWidget<MovieViewModel, MovieRepository>(
         model: MovieViewModel(),
         initData: (model) {
-          model.getMovieDetail(widget.movieId);
+          loadData(model);
         },
         builder: (context, model, child) {
-          if (model.movieDetail == null ||
-              model.movieDetailPageColor == AppColor.white) {
+          if (movieDetail == null || pageColor == AppColor.white) {
             return Scaffold(
               body: new Center(
                 child: CupertinoActivityIndicator(),
@@ -70,27 +72,26 @@ class MovieDetailListState extends State<MovieDetailList> {
             );
           }
           return Scaffold(
-              backgroundColor: model.movieDetailPageColor,
+              backgroundColor: pageColor,
               body: Stack(
                 children: <Widget>[
                   ListView(
-                    controller: scrollController,
+                    controller: _scrollController,
                     children: <Widget>[
-                      new MovieDetailHead(model.movieDetail,
-                          model.movieDetailPageColor, navAlpha),
-                      new MovieDetailChannel(model.movieDetail.tags),
+                      new MovieDetailHead(movieDetail, pageColor, navAlpha),
+                      new MovieDetailChannel(movieDetail.tags),
                       new CommonIntroView(
-                          model.movieDetail.summary, expand, clickShowAll),
+                          movieDetail.summary, expand, clickShowAll),
                       new MovieDetailCast(
-                          model.movieDetail.directors, model.movieDetail.casts),
-                      new MovieDetailPrevue(model.movieDetail.trailers,
-                          model.movieDetail.photos, model.movieDetail.id,
-                          title: model.movieDetail.title),
-                      new MovieDetailComment(model.movieDetail.comments),
+                          movieDetail.directors, movieDetail.casts),
+                      new MovieDetailTrailer(movieDetail.trailers,
+                          movieDetail.photos, movieDetail.id,
+                          title: movieDetail.title),
+                      new MovieDetailComment(movieDetail.comments),
                     ],
                   ),
-                  CommonTitleView(model.movieDetail.title, navAlpha,
-                      pageColor: model.movieDetailPageColor),
+                  CommonTitleView(movieDetail.title, navAlpha,
+                      pageColor: pageColor),
                 ],
               ));
         });
@@ -100,5 +101,19 @@ class MovieDetailListState extends State<MovieDetailList> {
     setState(() {
       expand = !expand;
     });
+  }
+
+  Future<dynamic> loadData(MovieViewModel model) async {
+    var data = await model.getMovieDetail(widget.movieId);
+    movieDetail = MovieDetail.fromJson(data);
+    PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
+      CachedNetworkImageProvider(movieDetail.images.small),
+    );
+    if (generator.darkVibrantColor != null) {
+      pageColor = generator.darkVibrantColor.color;
+    } else {
+      pageColor = Color(0xff35374c);
+    }
+    model.setState(ViewState.loaded);
   }
 }

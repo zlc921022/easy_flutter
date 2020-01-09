@@ -1,16 +1,14 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:flutter_movie/ui/common/common_app_bar.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayView extends StatefulWidget {
   final String url;
   final String title;
-  VideoPlayView({@required this.url,this.title});
+
+  VideoPlayView({@required this.url, this.title});
 
   @override
   State<StatefulWidget> createState() {
@@ -44,10 +42,11 @@ class VideoPlayViewState extends State<VideoPlayView> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: AppColor.black,
       appBar: AppBar(
         backgroundColor: AppColor.black,
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             AppNavigator.back(context);
           },
           child: Container(
@@ -57,7 +56,6 @@ class VideoPlayViewState extends State<VideoPlayView> {
         ),
       ),
       body: Container(
-        color: AppColor.black,
         child: Chewie(
           controller: chewieController,
         ),

@@ -5,12 +5,11 @@ import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
 import 'package:flutter_movie/ui/common/home_section_title.dart';
 import 'package:flutter_movie/ui/home/coming_movie_item.dart';
-import 'package:widget_chain/widget_chain.dart';
 
 /// 即将上映
 class HomeComingMovie extends StatefulWidget {
+  final List<MovieItem> comingMovies;
 
-  List<MovieItem> comingMovies;
   HomeComingMovie(this.comingMovies);
 
   @override
@@ -20,33 +19,41 @@ class HomeComingMovie extends StatefulWidget {
 }
 
 class HomeComingMovieState extends State<HomeComingMovie> {
-
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            HomeSectionTitle('即将上映'),
-            HomeLookAllView(() {
-              AppNavigator.pushMovieList(context, '即将上映', 'coming_soon');
-            }).intoExpanded(),
-          ],
-        ),
-        GridView.builder(
-            shrinkWrap: true,
-            itemCount: widget.comingMovies?.length,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                childAspectRatio: 0.52),
-            itemBuilder: (context, index) {
-              var movieItem = widget.comingMovies[index];
-              return ComingMovieItem(movieItem);
-            }).intoContainer(margin: const EdgeInsets.all(12)),
-      ],
-    ).intoContainer(color: AppColor.white, margin: EdgeInsets.only(bottom: 5));
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      color: AppColor.white,
+      child: new Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              HomeSectionTitle('即将上映'),
+              Expanded(
+                child: HomeLookAllView(() {
+                  AppNavigator.pushMovieList(context, '即将上映', 'coming_soon');
+                }),
+              )
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.all(12),
+            child: GridView.builder(
+                shrinkWrap: true,
+                itemCount: widget.comingMovies?.length,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 0.52),
+                itemBuilder: (context, index) {
+                  var movieItem = widget.comingMovies[index];
+                  return ComingMovieItem(movieItem);
+                }),
+          )
+        ],
+      ),
+    );
   }
 }

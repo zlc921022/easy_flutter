@@ -25,7 +25,7 @@ class HomeTopMovieListState extends State<HomeTopMovieList> with AutomaticKeepAl
     return ProviderWidget<MovieViewModel, MovieRepository>(
         model: new MovieViewModel(),
         initData: (model) {
-          model.loadData(0, 10);
+          model.loadData(start : 0, count : 10);
         },
         builder: (context, model, child) {
           if (model.banners == null) {

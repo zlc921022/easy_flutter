@@ -4,16 +4,17 @@ import 'package:flutter_movie/ui/common/common_section_title.dart';
 
 /// 所属频道
 class MovieDetailChannel extends StatelessWidget {
-
   final List tags;
+
   MovieDetailChannel(this.tags);
 
-  Widget _buildChannelItem(String name,int index) {
+  Widget _buildChannelItem(String name, int index) {
     return GestureDetector(
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: EdgeInsets.only(left: 15,right: ( index == tags.length - 1 ? 15 : 0)),
+        margin: EdgeInsets.only(
+            left: 15, right: (index == tags.length - 1 ? 15 : 0)),
         child: Row(
           children: <Widget>[
             Text(name, style: TextStyle(fontSize: 13, color: AppColor.white)),
@@ -41,7 +42,7 @@ class MovieDetailChannel extends StatelessWidget {
                   itemCount: tags.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return _buildChannelItem(tags[index],index);
+                    return _buildChannelItem(tags[index], index);
                   })),
         ]);
   }

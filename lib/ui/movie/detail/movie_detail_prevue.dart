@@ -9,14 +9,15 @@ import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:flutter_movie/ui/movie/video_play_view.dart';
 import 'package:widget_chain/widget_chain.dart';
 
-class MovieDetailPrevue extends StatelessWidget {
+/// 预告片 / 剧照
+class MovieDetailTrailer extends StatelessWidget {
   final List<MovieTrailer> trailers;
   final List<MoviePhoto> photos;
   List<String> imgUrls;
   final String id;
   final String title;
 
-  MovieDetailPrevue(this.trailers, this.photos, this.id, {this.title});
+  MovieDetailTrailer(this.trailers, this.photos, this.id, {this.title});
 
   List<Widget> getData(BuildContext context) {
     List<Widget> data = [];
@@ -34,17 +35,20 @@ class MovieDetailPrevue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CommonSectionTitle('预告片 / 剧照'),
-          SizedBox.fromSize(
-              size: Size.fromHeight(120),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: getData(context),
-              )).intoContainer(margin: const EdgeInsets.only(bottom: 15))
-        ]);
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            CommonSectionTitle('预告片 / 剧照'),
+            SizedBox.fromSize(
+                size: Size.fromHeight(120),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: getData(context),
+                )),
+          ]),
+    );
   }
 
   /// 电影预告片
@@ -96,7 +100,7 @@ class MovieDetailPrevue extends StatelessWidget {
         AppNavigator.pushPhotoList(context, '剧照', action: 'stills', id: id);
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 15, right: 8),
+        padding: const EdgeInsets.only(left: 15, right: 8,top: 15,bottom: 15),
         child: Row(
           children: <Widget>[
             Text('查看更多', style: TextStyle(color: AppColor.white, fontSize: 12)),

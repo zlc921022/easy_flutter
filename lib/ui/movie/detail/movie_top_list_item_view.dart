@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/model/movie_actor.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
+import 'package:flutter_movie/util/string_util.dart';
 
+/// 电影榜单列表 条目布局
 class MovieTopListItemView extends StatelessWidget {
   final MovieItem movieItem;
   final int index;
-  MovieTopListItemView(this.movieItem,this.index);
+
+  MovieTopListItemView(this.movieItem, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,11 @@ class MovieTopListItemView extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () {
-        AppNavigator.pushMovieDetail(context,movieItem: movieItem);
+        AppNavigator.pushMovieDetail(context, movieItem: movieItem);
       },
       child: Container(
         color: AppColor.white,
-        padding: const EdgeInsets.only(left: 15, top: 15, right: 20),
+        padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -86,8 +88,8 @@ class MovieTopListItemView extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                        '${movieItem.year} / ${list2String(movieItem.genres)} / '
-                        '${actor2String(movieItem.directors)} /${actor2String(movieItem.casts)}',
+                        '${movieItem.year} / ${StringUtil.list2String(movieItem.genres)} / '
+                        '${StringUtil.actor2String(movieItem.directors)} /${StringUtil.actor2String(movieItem.casts)}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style:
@@ -129,20 +131,4 @@ class MovieTopListItemView extends StatelessWidget {
       ),
     );
   }
-}
-
-String actor2String(List<MovieActor> actors) {
-  StringBuffer sb = new StringBuffer();
-  actors.forEach((actor) {
-    sb.write(' ${actor.name} ');
-  });
-  return sb.toString();
-}
-
-String list2String(List list) {
-  StringBuffer sb = new StringBuffer();
-  list.forEach((item) {
-    sb.write(' $item ');
-  });
-  return sb.toString();
 }

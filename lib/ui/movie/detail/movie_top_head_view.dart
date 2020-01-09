@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/util/screen.dart';
-
+/// 电影榜单列表 头部
 class MovieTopHeadView extends StatelessWidget {
   final String title;
   final String subTitle;

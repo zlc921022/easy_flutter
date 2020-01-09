@@ -11,6 +11,7 @@ import 'package:flutter_movie/viewmodel/movie_list_view_model.dart';
 
 import 'detail/movie_top_list_item_view.dart';
 
+/// 电影榜单列表
 class MovieTopListView extends StatefulWidget {
   final String action;
   final String title;
@@ -41,7 +42,6 @@ class MovieTopListViewState extends State<MovieTopListView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     start = 0;
     count = 20;
     super.initState();
@@ -64,7 +64,8 @@ class MovieTopListViewState extends State<MovieTopListView> {
         });
       } else if (offset < 50) {
         setState(() {
-          navAlpha = 1 - (50 - offset) / 50;
+          double temp = 1 - (50 - offset) * 1.0 / 50;
+          navAlpha = temp > 1 ? 1 : temp;
         });
       } else if (navAlpha != 1) {
         setState(() {
@@ -144,6 +145,7 @@ class MovieTopListViewState extends State<MovieTopListView> {
         });
   }
 
+  /// 电影列表条目
   Widget _buildMovieItem() {
     List<Widget> childrens = [];
     int index = 0;

@@ -4,7 +4,7 @@ import 'package:flutter_movie/ui/actor/actor_detail_view.dart';
 import 'package:flutter_movie/ui/actor/actor_photos_view.dart';
 import 'package:flutter_movie/ui/common/common_photo_view.dart';
 import 'package:flutter_movie/ui/common/common_web_view.dart';
-import 'package:flutter_movie/ui/movie/movie_detail_list.dart';
+import 'package:flutter_movie/ui/movie/movie_detail_view.dart';
 import 'package:flutter_movie/ui/movie/movie_list_view.dart';
 
 /// app应用跳转管理
@@ -27,7 +27,7 @@ class AppNavigator {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => MovieDetailList(movieItem.id)));
+            builder: (context) => MovieDetailView(movieItem.id)));
   }
 
   /// 演员详情

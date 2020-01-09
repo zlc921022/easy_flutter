@@ -1,32 +1,20 @@
 import 'package:flutter_movie/base/base_view_model.dart';
-import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
-import 'package:flutter_movie/util/movie_data_util.dart';
 
 /// 电影列表ViewModel
 class MovieListViewModel extends BaseViewModel<MovieRepository> {
-
-  /// 电影列表
-  List<MovieItem> movieData;
-  /// 电影榜单列表
-  List<MovieItem> topMovieData;
-
   /// 获取即将上映电影
   Future<dynamic> getComingList({int start, int count}) async {
     var result = await requestData(
         mRepository.getComingList(start: start, count: count));
-    var comingList = result?.data['subjects'];
-    this.movieData = MovieDataUtil.getMovieList(comingList);
-    return comingList;
+    return result?.data['subjects'];
   }
 
   /// 获取正在上映的电影
   Future<dynamic> getNowPlayingList({int start, int count}) async {
     var result = await requestData(
         mRepository.getNowPlayingList(start: start, count: count));
-    var nowPlayingList = result?.data['subjects'];
-    this.movieData = MovieDataUtil.getMovieList(nowPlayingList);
-    return nowPlayingList;
+    return result?.data['subjects'];
   }
 
   /// 获取本周口碑榜电影
@@ -40,16 +28,13 @@ class MovieListViewModel extends BaseViewModel<MovieRepository> {
     content.forEach((data) {
       movies.add(data['subject']);
     });
-    topMovieData = MovieDataUtil.getMovieList(movies);
     return movies;
   }
 
   /// 获取新片榜电影
   Future<dynamic> getNewMoviesList() async {
     var result = await requestData(mRepository.getNewMoviesList());
-    var movies = result?.data['subjects'];
-    topMovieData = MovieDataUtil.getMovieList(movies);
-    return movies;
+    return result?.data['subjects'];
   }
 
   /// 获取北美票房榜电影
@@ -63,7 +48,6 @@ class MovieListViewModel extends BaseViewModel<MovieRepository> {
     content.forEach((data) {
       movies.add(data['subject']);
     });
-    topMovieData = MovieDataUtil.getMovieList(movies);
     return movies;
   }
 
@@ -71,11 +55,8 @@ class MovieListViewModel extends BaseViewModel<MovieRepository> {
   Future<dynamic> getTop250List({int start, int count}) async {
     var result = await requestData(
         mRepository.getTop250List(start: start, count: count));
-    var movies = result?.data['subjects'];
-    topMovieData = MovieDataUtil.getMovieList(movies);
-    return movies;
+    return result?.data['subjects'];
   }
-
 
   @override
   MovieRepository createRepository() {

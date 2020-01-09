@@ -4,18 +4,19 @@ import 'package:flutter_movie/ui/common/app_navigator.dart';
 
 /// 通用头部AppBar
 class CommonAppBar extends AppBar {
-
   final BuildContext context;
   final String mTitle;
   final List<Widget> mActions;
   final bool isShowLeading;
+  final bool isElevation;
+  final Color tabBackgroundColor;
 
   CommonAppBar(this.context, this.mTitle,
-      {this.mActions, this.isShowLeading = true});
+      {this.mActions, this.isShowLeading = true, this.isElevation = true,this.tabBackgroundColor});
 
   /// 背景颜色
   @override
-  Color get backgroundColor => AppColor.white;
+  Color get backgroundColor => tabBackgroundColor ?? AppColor.white;
 
   /// 返回图片
   @override
@@ -40,4 +41,7 @@ class CommonAppBar extends AppBar {
   /// 右侧actions
   @override
   List<Widget> get actions => mActions;
+
+  @override
+  double get elevation => isElevation ? super.elevation : 0;
 }

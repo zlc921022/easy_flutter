@@ -2,21 +2,21 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/model/movie_actor.dart';
 import 'package:flutter_movie/model/movie_detail.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
-import 'package:widget_chain/widget_chain.dart';
+import 'package:flutter_movie/util/string_util.dart';
 
 import '../../../util/screen.dart';
 
+/// 电影详情头部
 class MovieDetailHead extends StatelessWidget {
   final MovieDetail movieDetail;
   final Color pageColor;
   final double alpha;
 
-  MovieDetailHead(this.movieDetail, this.pageColor,this.alpha);
+  MovieDetailHead(this.movieDetail, this.pageColor, this.alpha);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,9 @@ class MovieDetailHead extends StatelessWidget {
             children: <Widget>[
               CommonRoundedImage(movieDetail.images?.small,
                   width: 100, height: 134),
-              SizedBox(width: 10),
-              Column(
+              SizedBox(width: 12),
+              Expanded(
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(movieDetail.title,
@@ -83,42 +84,18 @@ class MovieDetailHead extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                      '${countries2String(movieDetail.countries)}/${list2String(movieDetail.genres)}/上映时间：'
-                      '${list2String(movieDetail.pubdates)}/ 片长: ${list2String(movieDetail.durations)}/'
-                      '${list2String(movieDetail.directors)}/${actor2String(movieDetail.casts)}',
+                      '${StringUtil.countries2String(movieDetail.countries)}/${StringUtil.list2String(movieDetail.genres)}/上映时间：'
+                      '${StringUtil.list2String(movieDetail.pubdates)}/ 片长: ${StringUtil.list2String(movieDetail.durations)}/'
+                      '${StringUtil.list2String(movieDetail.directors)}/${StringUtil.actor2String(movieDetail.casts)}',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: AppColor.white, fontSize: 12)),
                 ],
-              ).intoExpanded()
+              ))
             ],
           ),
         )
       ],
     );
-  }
-
-  String actor2String(List<MovieActor> actors) {
-    StringBuffer sb = new StringBuffer();
-    actors.forEach((actor) {
-      sb.write(' ${actor.name} ');
-    });
-    return sb.toString();
-  }
-
-  String list2String(List list) {
-    StringBuffer sb = new StringBuffer();
-    list.forEach((item) {
-      sb.write(' $item ');
-    });
-    return sb.toString();
-  }
-
-  String countries2String(List countries) {
-    StringBuffer sb = new StringBuffer();
-    countries.forEach((country) {
-      sb.write('$country ');
-    });
-    return sb.toString();
   }
 }

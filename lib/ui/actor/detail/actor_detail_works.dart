@@ -6,6 +6,7 @@ import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 
+/// 演员详情 -- 影视作品
 class ActorDetailWorks extends StatelessWidget {
   final List<MovieActorWork> works;
 
@@ -20,7 +21,6 @@ class ActorDetailWorks extends StatelessWidget {
         SizedBox.fromSize(
           size: Size.fromHeight(180),
           child: ListView.builder(
-              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: works?.length,
               itemBuilder: (context, index) {
@@ -32,25 +32,28 @@ class ActorDetailWorks extends StatelessWidget {
     );
   }
 
+  /// 影视作品子条目
   Widget _buildWorksItem(BuildContext context, MovieActorWork work, int index) {
+    double width = 100;
     return GestureDetector(
       onTap: () {
-        AppNavigator.pushMovieDetail(context,movieItem: work.movie);
+        AppNavigator.pushMovieDetail(context, movieItem: work.movie);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 15, right: (index == works.length - 1) ? 15 : 0),
+        margin: EdgeInsets.only(
+            left: 15, right: (index == works.length - 1) ? 15 : 0),
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             CommonRoundedImage(work.movie?.images?.small,
-                width: 100, height: 100 / 0.75),
+                width: width, height: 100 / 0.75),
             SizedBox(height: 5),
             Container(
-                width: 100,
-                child: Text(work.movie?.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14, color: AppColor.white)),
+              width: width,
+              child: Text(work.movie?.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 14, color: AppColor.white)),
             ),
             SizedBox(height: 5),
             Row(

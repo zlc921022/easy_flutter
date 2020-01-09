@@ -4,6 +4,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
 
+/// 演职员
 class MovieDetailCast extends StatelessWidget {
   final List<MovieActor> _actors;
   final List<MovieActor> _casts;

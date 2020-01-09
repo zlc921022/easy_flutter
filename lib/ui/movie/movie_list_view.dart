@@ -31,11 +31,6 @@ class MovieListViewState extends State<MovieListView> {
 
   ScrollController _scrollController = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   /// 添加滑动监听
   void addListener(MovieListViewModel model) {
     _scrollController.addListener(() {

@@ -17,18 +17,30 @@ class CommonIntroView extends StatelessWidget {
       children: <Widget>[
         CommonSectionTitle('简介'),
         Container(
-          margin: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+          margin: EdgeInsets.only(left: 15, right: 15),
           child: Text(
-            summary,
+            (summary == '' || summary == null) ? '暂无数据' : summary,
             maxLines: expand ? null : 4,
             overflow: TextOverflow.clip,
             style: TextStyle(fontSize: 14, color: AppColor.white),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            _callback();
-          },
+        _buildFoldView(),
+      ],
+    );
+  }
+
+  // 显示隐藏折叠
+  Widget _buildFoldView() {
+    if (summary == null || summary == '') {
+      return Container();
+    }
+    return GestureDetector(
+        onTap: () {
+          _callback();
+        },
+        child: Container(
+          height: 30,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -41,8 +53,6 @@ class CommonIntroView extends StatelessWidget {
                   color: AppColor.white, size: 20)
             ],
           ),
-        )
-      ],
-    );
+        ));
   }
 }

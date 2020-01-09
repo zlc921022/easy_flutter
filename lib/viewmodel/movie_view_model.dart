@@ -1,11 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/base_view_model.dart';
-import 'package:flutter_movie/base/view_state.dart';
-import 'package:flutter_movie/model/movie_detail.dart';
 import 'package:flutter_movie/model/movie_top_bannner.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -16,8 +12,6 @@ class MovieViewModel extends BaseViewModel<MovieRepository> {
   var usBoxList;
   var newMoviesList;
   List<MovieTopBanner> banners;
-  MovieDetail movieDetail;
-  Color movieDetailPageColor = AppColor.white;
 
   /// 获取本周口碑榜电影
   Future<dynamic> getWeeklyList() async {
@@ -63,20 +57,10 @@ class MovieViewModel extends BaseViewModel<MovieRepository> {
   /// 获取电影详情
   Future<dynamic> getMovieDetail(String movieId) async {
     var result = await requestData(mRepository.getMovieDetail(movieId));
-    movieDetail = MovieDetail.fromJson(result?.data);
-    PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
-      CachedNetworkImageProvider(movieDetail.images.small),
-    );
-    if (generator.darkVibrantColor != null) {
-      movieDetailPageColor = generator.darkVibrantColor.color;
-    } else {
-      movieDetailPageColor = Color(0xff35374c);
-    }
-    setState(ViewState.loaded);
     return result?.data;
   }
 
-  void loadData(int start, int count) async {
+  void loadData({int start, int count}) async {
     await requestData(_loadData(start, count));
   }
 

@@ -4,38 +4,38 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_actor_detail.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:widget_chain/widget_chain.dart';
 
 import '../../../util/screen.dart';
 
+/// 演员详情头部
 class ActorDetailHead extends StatelessWidget {
-
   final MovieActorDetail actorDetail;
+
   ActorDetailHead(this.actorDetail);
 
   @override
   Widget build(BuildContext context) {
+    double width = Screen.width;
+    double height = 228;
     return Stack(
       children: <Widget>[
         Image(
           image: CachedNetworkImageProvider(actorDetail.avatars?.large),
           fit: BoxFit.cover,
-          width: Screen.width,
-          height: 218,
+          width: width,
+          height: height,
         ),
         Opacity(
           opacity: 0.7,
           child: Container(
-            color: AppColor.black_33,
-            width: Screen.width,
-            height: 218,
+            color: AppColor.black,
+            width: width,
+            height: height,
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 15),
           alignment: Alignment.center,
-          height: 218,
+          height: height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
