@@ -15,7 +15,6 @@ class ComingMovieItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Toast.show('点击进入电影详情');
         AppNavigator.pushMovieDetail(context,movieItem: movieItem);
       },
       child: Column(

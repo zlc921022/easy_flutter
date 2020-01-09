@@ -7,7 +7,6 @@ import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:flutter_movie/ui/movie/video_play_view.dart';
-import 'package:widget_chain/widget_chain.dart';
 
 /// 预告片 / 剧照
 class MovieDetailTrailer extends StatelessWidget {
@@ -85,12 +84,15 @@ class MovieDetailTrailer extends StatelessWidget {
 
   /// 电影剧照
   Widget _buildPhotoItem(BuildContext context, MoviePhoto photo, int index) {
-    return GestureDetector(
-      onTap: () {
-        AppNavigator.toPhotoViewGallery(context, imgUrls, index);
-      },
-      child: CommonRoundedImage(photo.cover, width: 120 / 0.75, height: 120),
-    ).intoContainer(margin: const EdgeInsets.only(left: 15));
+    return Container(
+      margin: const EdgeInsets.only(left: 15),
+      child: GestureDetector(
+        onTap: () {
+          AppNavigator.toPhotoViewGallery(context, imgUrls, index);
+        },
+        child: CommonRoundedImage(photo.cover, width: 120 / 0.75, height: 120),
+      ),
+    );
   }
 
   /// 查看更多
@@ -100,7 +102,7 @@ class MovieDetailTrailer extends StatelessWidget {
         AppNavigator.pushPhotoList(context, '剧照', action: 'stills', id: id);
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 15, right: 8,top: 15,bottom: 15),
+        padding: const EdgeInsets.only(left: 15, right: 8, top: 15, bottom: 15),
         child: Row(
           children: <Widget>[
             Text('查看更多', style: TextStyle(color: AppColor.white, fontSize: 12)),

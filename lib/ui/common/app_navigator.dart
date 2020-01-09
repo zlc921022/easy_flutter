@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/actor/actor_detail_view.dart';
@@ -18,7 +19,7 @@ class AppNavigator {
   static void pushWebView(BuildContext context, {String url, String title}) {
     Navigator.push(
         context,
-        new MaterialPageRoute(
+        new CupertinoPageRoute(
             builder: (context) => CommonWebView(url, title ?? title)));
   }
 
@@ -26,21 +27,21 @@ class AppNavigator {
   static void pushMovieDetail(BuildContext context, {MovieItem movieItem}) {
     Navigator.push(
         context,
-        new MaterialPageRoute(
+        new CupertinoPageRoute(
             builder: (context) => MovieDetailView(movieItem.id)));
   }
 
   /// 演员详情
   static void pushActorDetail(BuildContext context, String actorId) {
     Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => ActorDetailView(actorId)));
+        new CupertinoPageRoute(builder: (context) => ActorDetailView(actorId)));
   }
 
   /// 电影列表
   static void pushMovieList(BuildContext context, String title, String action) {
     Navigator.push(
         context,
-        new MaterialPageRoute(
+        new CupertinoPageRoute(
             builder: (context) => MovieListView(action, title)));
   }
 
@@ -49,7 +50,7 @@ class AppNavigator {
       {String action, String id}) {
     Navigator.push(
         context,
-        new MaterialPageRoute(
+        new CupertinoPageRoute(
             builder: (context) => ActorPhotosView(
                   title,
                   id,
@@ -60,7 +61,7 @@ class AppNavigator {
   /// 查看图片
   static void toPhotoViewGallery(
       BuildContext context, List<String> images, int initIndex) {
-    Navigator.push(context, new MaterialPageRoute(builder: (context) {
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) {
       return new CommonPhotoView(imageUrls: images, initIndex: initIndex);
     }));
   }
