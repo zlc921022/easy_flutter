@@ -4,6 +4,8 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/home/home_page.dart';
 import 'package:flutter_movie/ui/my/my_page.dart';
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 /// app首页
 class App extends StatefulWidget {
   @override
@@ -50,6 +52,18 @@ class AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      title: 'Movie',
+      navigatorObservers: [routeObserver],
+      debugShowCheckedModeBanner: false,
+      /// 定义APP样式
+      theme: ThemeData(
+          primaryColor: AppColor.white,
+          dividerColor: Color(0xFFEEEEEE),
+          scaffoldBackgroundColor: AppColor.paper,
+          textTheme: TextTheme(
+              body1: TextStyle(color: AppColor.darkGrey)
+          )
+      ),
       home: new Scaffold(
           bottomNavigationBar: CupertinoTabBar(
             currentIndex: _currentIndex,

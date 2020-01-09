@@ -4,11 +4,9 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
-import 'package:widget_chain/widget_chain.dart';
 
 /// 影院热映条目
 class TopMovieItem extends StatelessWidget {
-
   final MovieItem movieItem;
 
   TopMovieItem(this.movieItem);
@@ -22,7 +20,7 @@ class TopMovieItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CommonRoundedImage(movieItem.images.small).intoExpanded(),
+          Expanded(child: CommonRoundedImage(movieItem.images.small)),
           SizedBox(height: 2),
           Text(movieItem.title,
               maxLines: 1,

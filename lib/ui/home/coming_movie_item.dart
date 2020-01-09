@@ -3,8 +3,7 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
-import 'package:flutter_movie/util/toast.dart';
-import 'package:widget_chain/widget_chain.dart';
+
 ///即将上映条目
 class ComingMovieItem extends StatelessWidget {
   final MovieItem movieItem;
@@ -15,12 +14,12 @@ class ComingMovieItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppNavigator.pushMovieDetail(context,movieItem: movieItem);
+        AppNavigator.pushMovieDetail(context, movieItem: movieItem);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CommonRoundedImage(movieItem.images.small).intoExpanded(),
+          Expanded(child: CommonRoundedImage(movieItem.images.small)),
           SizedBox(height: 2),
           Text(movieItem.title,
               maxLines: 1,
@@ -37,11 +36,12 @@ class ComingMovieItem extends StatelessWidget {
           SizedBox(height: 4),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-            decoration:BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               border: Border.all(width: 1, color: AppColor.red),
-            ) ,
-            child: Text('${movieItem.mainlandPubdate.split('-')[1]}月${movieItem.mainlandPubdate.split('-')[2]}日',
+            ),
+            child: Text(
+                '${movieItem.mainlandPubdate.split('-')[1]}月${movieItem.mainlandPubdate.split('-')[2]}日',
                 style: TextStyle(fontSize: 9, color: AppColor.red)),
           ),
         ],

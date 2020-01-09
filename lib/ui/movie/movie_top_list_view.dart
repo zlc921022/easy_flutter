@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
@@ -7,6 +10,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_top_head_view.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
+import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_list_view_model.dart';
 
 import 'detail/movie_top_list_item_view.dart';
@@ -26,12 +30,13 @@ class MovieTopListView extends StatefulWidget {
   }
 }
 
-class MovieTopListViewState extends State<MovieTopListView> {
+class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
   int start;
   int count;
 
   /// 是否还有更多
   bool _loadMore = false;
+  bool isVisible = true;
 
   /// 列表数据
   List<MovieItem> topMovieData = [];
@@ -106,6 +111,9 @@ class MovieTopListViewState extends State<MovieTopListView> {
 
   @override
   Widget build(BuildContext context) {
+    if (isVisible) {
+      updateStatusBar();
+    }
     return ProviderWidget<MovieListViewModel, MovieRepository>(
         model: new MovieListViewModel(),
         initData: (model) {
@@ -125,6 +133,7 @@ class MovieTopListViewState extends State<MovieTopListView> {
               body: Stack(
                 children: <Widget>[
                   ListView(
+                    padding: const EdgeInsets.only(top: 0),
                     controller: _scrollController,
                     children: <Widget>[
                       MovieTopHeadView(
@@ -163,5 +172,38 @@ class MovieTopListViewState extends State<MovieTopListView> {
     return Column(
       children: childrens,
     );
+  }
+
+  @override
+  void didPush() {
+    // 间隔500毫秒后，再设置状态栏样式。否则设置无效（会被build覆盖？）。
+    Timer(Duration(milliseconds: 500), () {
+      updateStatusBar();
+    });
+  }
+
+  @override
+  void didPopNext() {
+    isVisible = true;
+    updateStatusBar();
+  }
+
+  @override
+  void didPop() {
+    isVisible = false;
+  }
+
+  @override
+  void didPushNext() {
+    isVisible = false;
+  }
+
+  /// 更新状态栏
+  updateStatusBar() {
+    if (navAlpha == 1) {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
+    } else {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    }
   }
 }

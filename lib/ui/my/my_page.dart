@@ -4,6 +4,7 @@ import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_my_item_view.dart';
 import 'package:flutter_movie/ui/my/my_head_image.dart';
+import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/util/toast.dart';
 
 class MyPage extends StatefulWidget {
@@ -16,10 +17,12 @@ class MyPage extends StatefulWidget {
 class MyPageState extends State<MyPage> with RouteAware {
   @override
   Widget build(BuildContext context) {
+    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return Scaffold(
       body: Container(
         color: AppColor.white,
         child: ListView(
+          padding: EdgeInsets.only(top: 0),
           children: <Widget>[
             MyHeadImage(),
             CommonMyItemView('icon_github.png', '项目地址', clickProject),

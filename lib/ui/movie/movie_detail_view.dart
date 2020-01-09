@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/base/view_state.dart';
 import 'package:flutter_movie/model/movie_detail.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_movie/ui/movie/detail/movie_detail_channel.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_comment.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_head.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_prevue.dart';
+import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_view_model.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -58,6 +60,7 @@ class MovieDetailViewState extends State<MovieDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return ProviderWidget<MovieViewModel, MovieRepository>(
         model: MovieViewModel(),
         initData: (model) {
