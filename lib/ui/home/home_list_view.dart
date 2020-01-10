@@ -44,7 +44,6 @@ class _HomeListViewState extends State<HomeListView> {
                 });
           }
           return new Container(
-              color: AppColor.white,
               child: new ListView(
                 addAutomaticKeepAlives: true,
                 cacheExtent: 10 * 1000.0,
