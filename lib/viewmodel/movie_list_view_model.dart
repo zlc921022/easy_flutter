@@ -7,20 +7,28 @@ class MovieListViewModel extends BaseViewModel<MovieRepository> {
   Future<dynamic> getComingList({int start, int count}) async {
     var result = await requestData(
         mRepository.getComingList(start: start, count: count));
-    return result?.data['subjects'];
+    if (result != null && result.data != null) {
+      return result.data['subjects'];
+    } else {
+      return null;
+    }
   }
 
   /// 获取正在上映的电影
   Future<dynamic> getNowPlayingList({int start, int count}) async {
     var result = await requestData(
         mRepository.getNowPlayingList(start: start, count: count));
-    return result?.data['subjects'];
+    if (result != null && result.data != null) {
+      return result.data['subjects'];
+    } else {
+      return null;
+    }
   }
 
   /// 获取本周口碑榜电影
   Future<dynamic> getWeeklyList() async {
     var result = await requestData(mRepository.getWeeklyList());
-    if (result == null) {
+    if (result == null || result.data == null) {
       return null;
     }
     List content = result.data['subjects'];
@@ -34,13 +42,17 @@ class MovieListViewModel extends BaseViewModel<MovieRepository> {
   /// 获取新片榜电影
   Future<dynamic> getNewMoviesList() async {
     var result = await requestData(mRepository.getNewMoviesList());
-    return result?.data['subjects'];
+    if (result != null && result.data != null) {
+      return result.data['subjects'];
+    } else {
+      return null;
+    }
   }
 
   /// 获取北美票房榜电影
   Future<dynamic> getUsBoxList() async {
     var result = await requestData(mRepository.getUsBoxList());
-    if (result == null) {
+    if (result == null || result.data == null) {
       return null;
     }
     List content = result.data['subjects'];
@@ -55,7 +67,11 @@ class MovieListViewModel extends BaseViewModel<MovieRepository> {
   Future<dynamic> getTop250List({int start, int count}) async {
     var result = await requestData(
         mRepository.getTop250List(start: start, count: count));
-    return result?.data['subjects'];
+    if (result != null && result.data != null) {
+      return result.data['subjects'];
+    } else {
+      return null;
+    }
   }
 
   @override

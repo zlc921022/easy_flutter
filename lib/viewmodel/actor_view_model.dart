@@ -8,8 +8,11 @@ class ActorViewModel extends BaseViewModel<ActorRepository> {
   Future<dynamic> getMovieAlbum({String movieId, int start, int count}) async {
     var result = await requestData(mRepository.getMovieAlbum(
         movieId: movieId, start: start, count: count));
-    var photos = result?.data['photos'];
-    return photos;
+    if (result != null && result.data != null) {
+      return result.data['photos'];
+    } else {
+      return null;
+    }
   }
 
   /// 演员详细信息
@@ -22,8 +25,11 @@ class ActorViewModel extends BaseViewModel<ActorRepository> {
   Future<dynamic> getActorPhotos({String actorId, int start, int count}) async {
     var result = await requestData(mRepository.getActorPhotos(
         actorId: actorId, start: start, count: count));
-    var photos = result?.data['photos'];
-    return photos;
+    if (result != null && result.data != null) {
+      return result.data['photos'];
+    } else {
+      return null;
+    }
   }
 
   Future<List<String>> getImageUrls(List<MoviePhoto> photos) async {

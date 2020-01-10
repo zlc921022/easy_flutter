@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/model/movie_top_bannner.dart';
@@ -18,7 +19,7 @@ class TopListItemView extends StatelessWidget {
     double height = 100;
     return GestureDetector(
         onTap: () {
-          Navigator.push(context, new MaterialPageRoute(builder: (context) {
+          Navigator.push(context, new CupertinoPageRoute(builder: (context) {
             return new MovieTopListView(topBanner.title, topBanner.subTitle,
                 topBanner.movies[0]?.images?.medium, topBanner.action);
           }));

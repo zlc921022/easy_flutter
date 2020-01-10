@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
+import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_banner.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/home_respository.dart';
@@ -33,12 +34,15 @@ class _HomePageState extends State<HomePage> {
           loadData(model);
         },
         builder: (context, model, child) {
-          if (comingData == null) {
-            return new Scaffold(
-                backgroundColor: AppColor.white,
-                body: new Center(
-                  child: CupertinoActivityIndicator(),
-                ));
+          if (!model.isSuccess()) {
+            return CommonViewStateHelper(
+                model: model,
+                onEmptyPressed: () {
+                  loadData(model);
+                },
+                onErrorPressed: () {
+                  loadData(model);
+                });
           }
           return new Scaffold(
               appBar: CommonAppBar(
@@ -71,15 +75,37 @@ class _HomePageState extends State<HomePage> {
 
   /// 加载数据
   Future<dynamic> loadData(HomeViewModel model) async {
+    model.setLoading();
     var newsList = await model.getNewsList();
     var nowPlaylist = await model.getNowPlayingList(start: start, count: count);
     var comingList = await model.getComingList(start: start, count: count);
     this.newsBannerData = _news2Banner(newsList);
     this.comingData = MovieDataUtil.getMovieList(comingList);
     this.nowPlayData = MovieDataUtil.getMovieList(nowPlaylist);
+    if (isEmpty()) {
+      model.setEmpty();
+    } else {
+      model.setSuccess();
+    }
+  }
+
+  bool isEmpty() {
+    if (newsBannerData == null ||
+        comingData == null ||
+        nowPlayData == null ||
+        newsBannerData.isEmpty ||
+        comingData.isEmpty ||
+        nowPlayData.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   List<NewsBanner> _news2Banner(var list) {
+    if (list == null) {
+      return null;
+    }
     List content = list;
     List<NewsBanner> banners = [];
     content.forEach((data) {

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_movie/base/base_view_model.dart';
-import 'package:flutter_movie/base/view_state.dart';
 import 'package:flutter_movie/model/movie_top_bannner.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
@@ -53,7 +52,7 @@ class MovieViewModel extends BaseViewModel<MovieRepository> {
   }
 
   Future<dynamic> _loadData(int start, int count) async {
-    setState(ViewState.loading);
+    setLoading();
 
     weeklyList = MovieDataUtil.getMovieList(await getWeeklyList());
     top250List = MovieDataUtil.getMovieList(
@@ -70,6 +69,10 @@ class MovieViewModel extends BaseViewModel<MovieRepository> {
     var paletteGenerator4 = await PaletteGenerator.fromImageProvider(
         CachedNetworkImageProvider(newMoviesList[0].images.small));
 
+    if (isEmpty()) {
+      setEmpty();
+      return null;
+    }
     banners = [
       new MovieTopBanner(weeklyList, '一周口碑电影榜', '每周五更新·共10部', 'weekly',
           paletteGenerator1.darkVibrantColor),
@@ -80,8 +83,22 @@ class MovieViewModel extends BaseViewModel<MovieRepository> {
       new MovieTopBanner(usBoxList, '北美电影票房榜', '每周五更新·共10部', 'usBox',
           paletteGenerator4.darkVibrantColor),
     ];
+    setSuccess();
+  }
 
-    setState(ViewState.loaded);
+  bool isEmpty() {
+    if (weeklyList == null &&
+            top250List == null &&
+            usBoxList == null &&
+            newMoviesList == null ||
+        (weeklyList.isEmpty &&
+            top250List.isEmpty &&
+            usBoxList.isEmpty &&
+            newMoviesList.isEmpty)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /// 获取电影详情

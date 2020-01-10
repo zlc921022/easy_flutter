@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
+import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
@@ -58,6 +59,7 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
           _scrollController.position.maxScrollExtent) {
         if (_loadMore) {
           _loadMore = false;
+          model.isLoadMore = true;
           loadData(model);
         }
       }
@@ -97,15 +99,21 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
         break;
     }
     var newMovie = MovieDataUtil.getMovieList(list);
-    if (newMovie != null || newMovie.length != 0) {
+    if (newMovie != null && newMovie.length > 0) {
       _loadMore = true;
       topMovieData.addAll(newMovie);
       start = start + count;
     } else {
       _loadMore = false;
+      model.isLoadMore = false;
     }
     if (widget.action != 'top250') {
       _loadMore = false;
+    }
+    if (topMovieData.isEmpty) {
+      model.setEmpty();
+    } else {
+      model.setSuccess();
     }
   }
 
@@ -121,12 +129,15 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (topMovieData.length == 0) {
-            return Scaffold(
-              body: new Center(
-                child: CupertinoActivityIndicator(),
-              ),
-            );
+          if (!model.isSuccess() && !model.isLoadMore) {
+            return new CommonViewStateHelper(
+                model: model,
+                onErrorPressed: () {
+                  loadData(model);
+                },
+                onEmptyPressed: () {
+                  loadData(model);
+                });
           }
           return Scaffold(
             body: Scaffold(

@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
+import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
@@ -43,13 +43,15 @@ class _ActorPhotosViewState extends State<ActorPhotosView> {
           _addListener(model);
         },
         builder: (context, model, child) {
-          if (moviePhotos == null || moviePhotos.length == 0) {
-            return Scaffold(
-              backgroundColor: AppColor.white,
-              body: Center(
-                child: CupertinoActivityIndicator(),
-              ),
-            );
+          if (!model.isSuccess() && !model.isLoadMore) {
+            return CommonViewStateHelper(
+                model: model,
+                onEmptyPressed: () {
+                  loadData(model);
+                },
+                onErrorPressed: () {
+                  loadData(model);
+                });
           }
           return Scaffold(
             appBar: CommonAppBar(context, widget.title),
@@ -111,9 +113,16 @@ class _ActorPhotosViewState extends State<ActorPhotosView> {
       moviePhotos.addAll(newPhotos);
       imagesUrls.addAll(newImages);
       start = start + count;
+      model.isLoadMore = true;
       _loadMore = true;
     } else {
+      model.isLoadMore = false;
       _loadMore = false;
+    }
+    if (moviePhotos.isEmpty) {
+      model.setEmpty();
+    } else {
+      model.setSuccess();
     }
   }
 

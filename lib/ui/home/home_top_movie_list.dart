@@ -17,7 +17,8 @@ class HomeTopMovieList extends StatefulWidget {
   }
 }
 
-class HomeTopMovieListState extends State<HomeTopMovieList> with AutomaticKeepAliveClientMixin<HomeTopMovieList>{
+class HomeTopMovieListState extends State<HomeTopMovieList>
+    with AutomaticKeepAliveClientMixin<HomeTopMovieList> {
   int _currentIndex = 1;
 
   @override
@@ -25,11 +26,16 @@ class HomeTopMovieListState extends State<HomeTopMovieList> with AutomaticKeepAl
     return ProviderWidget<MovieViewModel, MovieRepository>(
         model: new MovieViewModel(),
         initData: (model) {
-          model.loadData(start : 0, count : 10);
+          model.loadData(start: 0, count: 10);
         },
         builder: (context, model, child) {
-          if (model.banners == null) {
-            return CupertinoActivityIndicator();
+          if (model.isLoading()) {
+            return Container(
+              padding: const EdgeInsets.only(top: 15, bottom: 15),
+              child: Center(
+                child: CupertinoActivityIndicator(),
+              ),
+            );
           }
           return Container(
             color: AppColor.white,

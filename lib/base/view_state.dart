@@ -3,12 +3,21 @@ enum ViewState {
   /// 加载中
   loading,
 
-  /// 加载完成
-  loaded,
-
-  /// 数据加载成功
+  /// 数据返回成功
   success,
 
-  /// 数据加载失败
-  error
+  /// 空数据
+  empty,
+
+  /// 数据返回失败
+  error,
+}
+
+class ViewStateError {
+  Error error;
+  String message;
+
+  ViewStateError(this.error, this.message) {
+    this.message ??= '服务器异常';
+  }
 }

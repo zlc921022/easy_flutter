@@ -1,6 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/base_repository.dart';
-import 'package:flutter_movie/base/base_result.dart';
 import 'package:flutter_movie/base/view_state.dart';
 
 /// 父类ViewModel
@@ -10,31 +10,35 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   T mRepository;
 
   /// 初始化状态为加载中
-  ViewState state = ViewState.loading;
+  ViewState _state = ViewState.loading;
 
-  BaseViewModel() {
+  /// 错误状态类
+  ViewStateError _viewStateError;
+
+  ViewStateError get viewStateError => _viewStateError;
+
+  /// 是否是加载更多
+  bool isLoadMore = false;
+
+  BaseViewModel({ViewState state}) {
+    this._state = state;
     mRepository = createRepository();
   }
 
   /// 通用请求数据方法
   Future<dynamic> requestData(Future<dynamic> f) async {
-    if (_disposed) {
-      return BaseResult(code: 500);
+    if (!isLoadMore) {
+      setLoading();
     }
     try {
-      setState(ViewState.loading);
       var result = await f;
-      if (result.code == 200) {
-        setState(ViewState.success);
-      } else {
-        setState(ViewState.error);
+      if (result.code != 200) {
+        setError(new Exception(), message: result.message);
       }
-      setState(ViewState.loaded);
       return result;
     } catch (e) {
       print(e.toString());
-      setState(ViewState.loaded);
-      return BaseResult(code: 500);
+      setError(e);
     }
   }
 
@@ -54,11 +58,54 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
     super.dispose();
   }
 
+  /// 初始化状态
+  void setLoading() {
+    setState(ViewState.loading);
+  }
+
+  /// 数据成功不为空
+  void setSuccess() {
+    setState(ViewState.success);
+  }
+
+  /// 数据成功且为空
+  void setEmpty() {
+    setState(ViewState.empty);
+  }
+
+  /// 数据异常
+  void setError(e, {String message}) {
+    if (e is DioError) {
+      e = e.error;
+      message = e.message;
+    }
+    _viewStateError = new ViewStateError(e, message);
+    setState(ViewState.error);
+  }
+
   /// 设置状态改变
   void setState(ViewState state) {
-    this.state = state;
-    if (state == ViewState.loaded) {
-      notifyListeners();
-    }
+    this._state = state;
+    notifyListeners();
+  }
+
+  /// 加载中状态
+  bool isLoading() {
+    return this._state == ViewState.loading;
+  }
+
+  /// 数据为空状态
+  bool isEmpty() {
+    return this._state == ViewState.empty;
+  }
+
+  /// 数据异常状态
+  bool isError() {
+    return this._state == ViewState.error;
+  }
+
+  /// 数据加载成功状态 不为空
+  bool isSuccess() {
+    return this._state == ViewState.success;
   }
 }

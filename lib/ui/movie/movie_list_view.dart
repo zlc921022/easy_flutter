@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
+import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
@@ -38,6 +39,7 @@ class MovieListViewState extends State<MovieListView> {
           _scrollController.position.maxScrollExtent) {
         if (_loadMore) {
           _loadMore = false;
+          model.isLoadMore = true;
           loadData(model);
         }
       }
@@ -59,6 +61,12 @@ class MovieListViewState extends State<MovieListView> {
       start = start + count;
     } else {
       _loadMore = false;
+      model.isLoadMore = false;
+    }
+    if (movieData.isEmpty) {
+      model.setEmpty();
+    } else {
+      model.setSuccess();
     }
   }
 
@@ -71,12 +79,15 @@ class MovieListViewState extends State<MovieListView> {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (movieData.length == 0) {
-            return Scaffold(
-              body: Center(
-                child: CupertinoActivityIndicator(),
-              ),
-            );
+          if (!model.isSuccess() && !model.isLoadMore) {
+            return new CommonViewStateHelper(
+                model: model,
+                onEmptyPressed: () {
+                  loadData(model);
+                },
+                onErrorPressed: () {
+                  loadData(model);
+                });
           }
           return Scaffold(
             appBar: CommonAppBar(context, this.widget.title),
@@ -89,7 +100,7 @@ class MovieListViewState extends State<MovieListView> {
                     itemBuilder: (context, index) {
                       if (_loadMore && (index + 1) == movieData.length) {
                         return Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.only(top: 15,bottom: 15),
                           child: Center(
                             child: CupertinoActivityIndicator(),
                           ),

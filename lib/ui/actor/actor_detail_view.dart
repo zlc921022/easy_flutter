@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state.dart';
+import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_actor_detail.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
 import 'package:flutter_movie/ui/actor/detail/actor_detail_head.dart';
@@ -69,13 +69,15 @@ class ActorDetailViewState extends State<ActorDetailView> {
           loadData(model);
         },
         builder: (context, model, child) {
-          if (actorDetail == null || pageColor == AppColor.white) {
-            return Scaffold(
-              backgroundColor: AppColor.white,
-              body: Center(
-                child: CupertinoActivityIndicator(),
-              ),
-            );
+          if (!model.isSuccess()) {
+            return CommonViewStateHelper(
+                model: model,
+                onEmptyPressed: () {
+                  loadData(model);
+                },
+                onErrorPressed: () {
+                  loadData(model);
+                });
           }
           return Scaffold(
               backgroundColor: pageColor,
@@ -101,16 +103,22 @@ class ActorDetailViewState extends State<ActorDetailView> {
   /// 数据加载处理
   Future<dynamic> loadData(ActorViewModel model) async {
     var data = await model.getActorDetail(widget.actorId);
-    actorDetail = MovieActorDetail.fromJson(data);
+    if (data != null) {
+      actorDetail = MovieActorDetail.fromJson(data);
+    }
     PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
-      CachedNetworkImageProvider(actorDetail.avatars?.small),
+      CachedNetworkImageProvider(actorDetail?.avatars?.small),
     );
     if (generator.darkMutedColor != null) {
       pageColor = generator.darkMutedColor.color;
     } else {
       pageColor = Color(0xff35374c);
     }
-    model.setState(ViewState.loaded);
+    if (actorDetail == null) {
+      model.setEmpty();
+    } else {
+      model.setSuccess();
+    }
   }
 
   void clickShowAll() {

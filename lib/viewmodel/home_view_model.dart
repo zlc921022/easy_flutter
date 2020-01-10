@@ -5,16 +5,22 @@ import 'package:flutter_movie/repository/home_respository.dart';
 class HomeViewModel extends BaseViewModel<HomeRepository> {
   /// 获取即将上映电影
   Future<dynamic> getComingList({int start, int count}) async {
-    var result = await requestData(
-        mRepository.getComingList(start: start, count: count));
-    return result?.data['subjects'];
+    var result = await mRepository.getComingList(start: start, count: count);
+    if (result != null && result.data != null) {
+      return result.data['subjects'];
+    } else {
+      return null;
+    }
   }
 
   /// 获取正在上映的电影
   Future<dynamic> getNowPlayingList({int start, int count}) async {
-    var result = await requestData(
-        mRepository.getNowPlayingList(start: start, count: count));
-    return result?.data['subjects'];
+    var result = await mRepository.getNowPlayingList(start: start, count: count);
+    if (result != null && result.data != null) {
+      return result.data['subjects'];
+    } else {
+      return null;
+    }
   }
 
   ///  获取首页热门新闻文章

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state.dart';
+import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_detail.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_movie/ui/movie/detail/movie_detail_cast.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_channel.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_comment.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_head.dart';
-import 'package:flutter_movie/ui/movie/detail/movie_detail_prevue.dart';
+import 'package:flutter_movie/ui/movie/detail/movie_detail_trailer.dart';
 import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_view_model.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -67,12 +67,15 @@ class MovieDetailViewState extends State<MovieDetailView> {
           loadData(model);
         },
         builder: (context, model, child) {
-          if (movieDetail == null || pageColor == AppColor.white) {
-            return Scaffold(
-              body: new Center(
-                child: CupertinoActivityIndicator(),
-              ),
-            );
+          if (!model.isSuccess()) {
+            return CommonViewStateHelper(
+                model: model,
+                onErrorPressed: () {
+                  loadData(model);
+                },
+                onEmptyPressed: () {
+                  loadData(model);
+                });
           }
           return Scaffold(
               backgroundColor: pageColor,
@@ -108,7 +111,9 @@ class MovieDetailViewState extends State<MovieDetailView> {
 
   Future<dynamic> loadData(MovieViewModel model) async {
     var data = await model.getMovieDetail(widget.movieId);
-    movieDetail = MovieDetail.fromJson(data);
+    if (data != null) {
+      movieDetail = MovieDetail.fromJson(data);
+    }
     PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
       CachedNetworkImageProvider(movieDetail.images.small),
     );
@@ -117,6 +122,10 @@ class MovieDetailViewState extends State<MovieDetailView> {
     } else {
       pageColor = Color(0xff35374c);
     }
-    model.setState(ViewState.loaded);
+    if (movieDetail == null) {
+      model.setEmpty();
+    } else {
+      model.setSuccess();
+    }
   }
 }
