@@ -26,6 +26,9 @@ class MovieListView extends StatefulWidget {
 class MovieListViewState extends State<MovieListView> {
   /// 是否还有更多
   bool _loadMore = false;
+
+  /// 是否是刷新
+  bool _refresh = false;
   int start = 0;
   int count = 20;
   List<MovieItem> movieData = [];
@@ -47,8 +50,10 @@ class MovieListViewState extends State<MovieListView> {
   }
 
   /// 加载数据
-  Future<dynamic> loadData(MovieListViewModel model) async {
+  Future<dynamic> loadData(MovieListViewModel model,
+      {isRefresh = false}) async {
     var list;
+    _refresh = isRefresh;
     if (widget.action == 'coming_soon') {
       list = await model.getComingList(start: start, count: count);
     } else if (widget.action == 'top_movie') {
@@ -56,9 +61,15 @@ class MovieListViewState extends State<MovieListView> {
     }
     var newMovies = MovieDataUtil.getMovieList(list);
     if (newMovies != null && newMovies.length > 0) {
-      this.movieData.addAll(newMovies);
-      _loadMore = true;
-      start = start + count;
+      if (isRefresh) {
+        this.movieData.clear();
+        this.movieData.addAll(newMovies);
+        _refresh = false;
+      } else {
+        this.movieData.addAll(newMovies);
+        _loadMore = true;
+        start = start + count;
+      }
     } else {
       _loadMore = false;
       model.isLoadMore = false;
@@ -70,6 +81,14 @@ class MovieListViewState extends State<MovieListView> {
     }
   }
 
+  Future<void> refreshData({@required MovieListViewModel model}) async {
+    start = 0;
+    count = 20;
+    await Future.delayed(Duration(milliseconds: 1000), () {
+      loadData(model, isRefresh: true);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<MovieListViewModel, MovieRepository>(
@@ -79,7 +98,7 @@ class MovieListViewState extends State<MovieListView> {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccess() && !model.isLoadMore) {
+          if (!_refresh && !model.isSuccess() && !model.isLoadMore) {
             return new CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {
@@ -90,27 +109,30 @@ class MovieListViewState extends State<MovieListView> {
                 });
           }
           return Scaffold(
-            appBar: CommonAppBar(context, this.widget.title),
-            body: Container(
-                color: AppColor.white,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: movieData.length,
-                    controller: _scrollController,
-                    itemBuilder: (context, index) {
-                      if (_loadMore && (index + 1) == movieData.length) {
-                        return Container(
-                          padding: EdgeInsets.only(top: 15,bottom: 15),
-                          child: Center(
-                            child: CupertinoActivityIndicator(),
-                          ),
-                        );
-                      }
-                      MovieItem movieItem = movieData[index];
-                      return new MovieListItemView(
-                          movieItem, this.widget.action);
-                    })),
-          );
+              appBar: CommonAppBar(context, this.widget.title),
+              body: RefreshIndicator(
+                  child: Container(
+                      color: AppColor.white,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: movieData.length,
+                          controller: _scrollController,
+                          itemBuilder: (context, index) {
+                            if (_loadMore && (index + 1) == movieData.length) {
+                              return Container(
+                                padding: EdgeInsets.only(top: 15, bottom: 15),
+                                child: Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                              );
+                            }
+                            MovieItem movieItem = movieData[index];
+                            return new MovieListItemView(
+                                movieItem, this.widget.action);
+                          })),
+                  onRefresh: () {
+                    return refreshData(model: model);
+                  }));
         });
   }
 }

@@ -37,6 +37,9 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
 
   /// 是否还有更多
   bool _loadMore = false;
+
+  /// 是否是刷新
+  bool _refresh = false;
   bool isVisible = true;
 
   /// 列表数据
@@ -88,8 +91,10 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
     });
   }
 
-  Future<dynamic> loadData(MovieListViewModel model) async {
+  Future<dynamic> loadData(MovieListViewModel model,
+      {isRefresh = false}) async {
     var list;
+    _refresh = isRefresh;
     switch (widget.action) {
       case 'weekly':
         list = await model.getWeeklyList();
@@ -106,9 +111,15 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
     }
     var newMovie = MovieDataUtil.getMovieList(list);
     if (newMovie != null && newMovie.length > 0) {
-      _loadMore = true;
-      topMovieData.addAll(newMovie);
-      start = start + count;
+      if (isRefresh) {
+        topMovieData.clear();
+        topMovieData.addAll(newMovie);
+        _refresh = false;
+      } else {
+        _loadMore = true;
+        topMovieData.addAll(newMovie);
+        start = start + count;
+      }
     } else {
       _loadMore = false;
       model.isLoadMore = false;
@@ -123,6 +134,13 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
     }
   }
 
+  Future<void> refreshData({MovieListViewModel model}) async {
+    start = 0;
+    await Future.delayed(Duration(milliseconds: 1000), () {
+      loadData(model, isRefresh: true);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isVisible) {
@@ -135,7 +153,7 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccess() && !model.isLoadMore) {
+          if (!model.isSuccess() && !_refresh && !model.isLoadMore) {
             return new CommonViewStateHelper(
                 model: model,
                 onErrorPressed: () {
@@ -149,15 +167,19 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
             body: Scaffold(
               body: Stack(
                 children: <Widget>[
-                  ListView(
-                    padding: const EdgeInsets.only(top: 0),
-                    controller: _scrollController,
-                    children: <Widget>[
-                      MovieTopHeadView(
-                          widget.title, widget.subTitle, widget.image),
-                      _buildMovieItem(),
-                    ],
-                  ),
+                  RefreshIndicator(
+                      child: ListView(
+                        padding: const EdgeInsets.only(top: 0),
+                        controller: _scrollController,
+                        children: <Widget>[
+                          MovieTopHeadView(
+                              widget.title, widget.subTitle, widget.image),
+                          _buildMovieItem(),
+                        ],
+                      ),
+                      onRefresh: () {
+                        return refreshData(model: model);
+                      }),
                   CommonTitleView(
                     widget.title,
                     navAlpha,
