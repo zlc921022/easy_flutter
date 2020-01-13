@@ -62,15 +62,11 @@ class MovieDetailHead extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 18)),
                   SizedBox(height: 5),
-                  Row(
-                    children: <Widget>[
-                      Text('${movieDetail.originalTitle} (${movieDetail.year})',
-                          style: TextStyle(
-                              color: AppColor.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
-                    ],
-                  ),
+                  Text('${movieDetail.originalTitle} (${movieDetail.year})',
+                      style: TextStyle(
+                          color: AppColor.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14)),
                   SizedBox(height: 5),
                   Row(
                     children: <Widget>[

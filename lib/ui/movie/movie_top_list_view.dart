@@ -72,7 +72,13 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
       } else if (offset < 50) {
         setState(() {
           double temp = 1 - (50 - offset) * 1.0 / 50;
-          navAlpha = temp > 1 ? 1 : temp;
+          if (temp > 1) {
+            navAlpha = 1;
+          } else if (temp < 0) {
+            navAlpha = 0;
+          } else {
+            navAlpha = temp;
+          }
         });
       } else if (navAlpha != 1) {
         setState(() {

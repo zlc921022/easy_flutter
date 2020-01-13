@@ -48,6 +48,8 @@ class CommonTitleView extends StatelessWidget {
                 Expanded(
                     child: Text(title,
                         textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
