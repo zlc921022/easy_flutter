@@ -3,6 +3,7 @@ import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
+import 'package:flutter_movie/util/screen.dart';
 
 ///即将上映条目
 class ComingMovieItem extends StatelessWidget {
@@ -12,6 +13,7 @@ class ComingMovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = (Screen.width - 48) / 3;
     return GestureDetector(
       onTap: () {
         AppNavigator.pushMovieDetail(context, movieItem: movieItem);
@@ -19,7 +21,8 @@ class ComingMovieItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(child: CommonRoundedImage(movieItem.images.small)),
+          Expanded(
+              child: CommonRoundedImage(movieItem.images.small, width: width)),
           SizedBox(height: 2),
           Text(movieItem.title,
               maxLines: 1,

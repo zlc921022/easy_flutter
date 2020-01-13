@@ -7,18 +7,11 @@ import 'package:flutter_movie/ui/common/home_section_title.dart';
 import 'package:flutter_movie/ui/home/coming_movie_item.dart';
 
 /// 即将上映
-class HomeComingMovie extends StatefulWidget {
+class HomeComingMovie extends StatelessWidget {
   final List<MovieItem> comingMovies;
 
   HomeComingMovie(this.comingMovies);
 
-  @override
-  State<StatefulWidget> createState() {
-    return HomeComingMovieState();
-  }
-}
-
-class HomeComingMovieState extends State<HomeComingMovie> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +33,7 @@ class HomeComingMovieState extends State<HomeComingMovie> {
             margin: const EdgeInsets.all(12),
             child: GridView.builder(
                 shrinkWrap: true,
-                itemCount: widget.comingMovies?.length,
+                itemCount: comingMovies.length,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -48,7 +41,7 @@ class HomeComingMovieState extends State<HomeComingMovie> {
                     crossAxisSpacing: 12,
                     childAspectRatio: 0.52),
                 itemBuilder: (context, index) {
-                  var movieItem = widget.comingMovies[index];
+                  var movieItem = comingMovies[index];
                   return ComingMovieItem(movieItem);
                 }),
           )
