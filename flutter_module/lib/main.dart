@@ -56,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _eventChannel
         .receiveBroadcastStream('你好啊')
         .listen(onSuccess, onError: onError);
+
+    /// MethodChannel
+    _methodChannel.setMethodCallHandler(methodChannelHandler);
   }
 
   void onSuccess(dynamic message) {
@@ -139,11 +142,22 @@ class _MyHomePageState extends State<MyHomePage> {
     if (groupValue == 'BaseMessageChannel') {
       _messageChannel.send('你好native，我是flutter的BaseMessageChannel发来的消息');
     } else if (groupValue == 'MethodChannel') {
-      var message = await _methodChannel.invokeMethod(
-          'sum', 420);
+      var message = await _methodChannel.invokeMethod('sum', 420);
       setState(() {
         showMessage = message;
       });
     }
+  }
+
+  Future<dynamic> methodChannelHandler(MethodCall call) async {
+    switch (call.method) {
+      case 'getFlutter':
+        return getFlutter(call.arguments);
+        break;
+    }
+  }
+
+  String getFlutter(dynamic arguments) {
+    return '你好，native,我是你通过methodChannel调用的方法,参数为：$arguments';
   }
 }

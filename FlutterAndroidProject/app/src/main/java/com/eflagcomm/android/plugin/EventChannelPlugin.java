@@ -1,9 +1,5 @@
 package com.eflagcomm.android.plugin;
 
-import android.app.Activity;
-
-import com.eflagcomm.android.IShowMessage;
-
 import java.util.ArrayList;
 import java.util.List;
 

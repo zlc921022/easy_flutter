@@ -2,6 +2,8 @@ package com.eflagcomm.android;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
@@ -30,6 +32,8 @@ public class FlutterActivity extends AppCompatActivity implements IShowMessage {
     private EventChannelPlugin mEventChannelPlugin;
     private FlutterView mFlutterView;
     private TextView mReceiveMessage;
+    private Button mBtnHandle;
+    private MethodChannelPlugin mMethodChannelPlugin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +63,18 @@ public class FlutterActivity extends AppCompatActivity implements IShowMessage {
                 }
             }
         });
+        mRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rb_method_channel) {
+                mBtnHandle.setVisibility(View.VISIBLE);
+            } else {
+                mBtnHandle.setVisibility(View.GONE);
+            }
+        });
+        mBtnHandle.setOnClickListener(v -> {
+            if (mRadioGroup.getCheckedRadioButtonId() == R.id.rb_method_channel) {
+                mMethodChannelPlugin.callFlutterMethod("getFlutter", "123456");
+            }
+        });
     }
 
     private void initData() {
@@ -83,6 +99,7 @@ public class FlutterActivity extends AppCompatActivity implements IShowMessage {
         mInput = findViewById(R.id.et_input);
         mRadioGroup.check(R.id.rb_message_channel);
         mReceiveMessage = findViewById(R.id.tv_message);
+        mBtnHandle = findViewById(R.id.btn_handle);
     }
 
     private void registerPlugin() {
@@ -92,7 +109,9 @@ public class FlutterActivity extends AppCompatActivity implements IShowMessage {
         if (mEventChannelPlugin == null) {
             mEventChannelPlugin = EventChannelPlugin.registerPlugin(mFlutterView);
         }
-        MethodChannelPlugin.registerPlugin(mFlutterView, this);
+        if (mMethodChannelPlugin == null) {
+            mMethodChannelPlugin = MethodChannelPlugin.registerPlugin(mFlutterView, this);
+        }
     }
 
     @Override

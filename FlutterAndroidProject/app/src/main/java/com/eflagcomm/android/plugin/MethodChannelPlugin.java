@@ -1,7 +1,5 @@
 package com.eflagcomm.android.plugin;
 
-import android.app.Activity;
-
 import com.eflagcomm.android.IShowMessage;
 
 import androidx.annotation.NonNull;
@@ -18,6 +16,7 @@ import io.flutter.view.FlutterView;
 public class MethodChannelPlugin implements MethodChannel.MethodCallHandler {
 
     private IShowMessage mShowMessage;
+    private final MethodChannel mMethodChannel;
 
     public static MethodChannelPlugin registerPlugin(FlutterView flutterView, IShowMessage showMessage) {
         return new MethodChannelPlugin(flutterView, showMessage);
@@ -25,8 +24,8 @@ public class MethodChannelPlugin implements MethodChannel.MethodCallHandler {
 
     private MethodChannelPlugin(FlutterView flutterView, IShowMessage showMessage) {
         this.mShowMessage = showMessage;
-        MethodChannel methodChannel = new MethodChannel(flutterView, "MethodChannelPlugin");
-        methodChannel.setMethodCallHandler(this);
+        mMethodChannel = new MethodChannel(flutterView, "MethodChannelPlugin");
+        mMethodChannel.setMethodCallHandler(this);
     }
 
     @Override
@@ -45,13 +44,46 @@ public class MethodChannelPlugin implements MethodChannel.MethodCallHandler {
         }
     }
 
+    /// 原生方法 给flutter调用
     private void showMessage(String message) {
         if (mShowMessage != null) {
             mShowMessage.showMessage(message);
         }
     }
 
+    /// 原生方法 给flutter调用
     private int sum(int a) {
         return a + 100;
+    }
+
+    /**
+     * 调用flutter的方法
+     *
+     * @param method 方法名
+     * @param params 参数
+     */
+    public void callFlutterMethod(String method, Object params) {
+        if (mMethodChannel != null) {
+            mMethodChannel.invokeMethod(method, params, new MethodChannel.Result() {
+                @Override
+                public void success(Object o) {
+                    if (mShowMessage != null) {
+                        mShowMessage.showMessage(o.toString());
+                    }
+                }
+
+                @Override
+                public void error(String s, String s1, Object o) {
+                    if (mShowMessage != null) {
+                        mShowMessage.showMessage(s);
+                    }
+                }
+
+                @Override
+                public void notImplemented() {
+
+                }
+            });
+        }
     }
 }
