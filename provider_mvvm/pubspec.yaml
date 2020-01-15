@@ -1,6 +1,6 @@
 name: provider_mvvm
 description: A Flutter MVVM plugin for iOS and Android,It makes Make development easier。
-version: 0.3.0
+version: 0.0.4
 author: xiaocheng(zlc921022@163.com)
 homepage: https://github.com/zlc921022/flutter_movie/tree/master/provider_mvvm
 
