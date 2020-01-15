@@ -1,9 +1,7 @@
 name: provider_mvvm
-description: A Flutter MVVM plugin for iOS and Android,It makes it easier to use attribute-based data binding to establish connections between the viewmodel and the view, and to drive view changes through the viewmodel
-version: 0.0.1
-author: zlc(zlc921022@163.com)
-homepage: https://github.com/zlc921022
-repository: https://github.com/zlc921022
+description: A Flutter MVVM plugin for iOS and Android,It makes Make development easier。
+author: xiaocheng(zlc921022@163.com)
+homepage: https://github.com/zlc921022/flutter_movie/tree/master/provider_mvvm
 
 environment:
   sdk: ">=2.6.0 <3.0.0"

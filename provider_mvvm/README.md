@@ -1,8 +1,6 @@
 # Flutter MVVM框架介绍
 
-A Flutter MVVM (Model-View-ViewModel) implementation. It makes it easier to uses property-based data binding to establish a connection between the ViewModel and the View, and drives the View changes through the ViewModel.
-
-一个 Flutter 的 MVVM(Model-View-ViewModel) 实现。 更容易的使用基于属性 (property) 的数据绑定在视图模型 (ViewModel) 与视图 (View) 之间建立关联，并通过视图模型 (ViewModel) 驱动视图 (View) 变化。
+A Flutter MVVM plugin for iOS and Android,It makes Make development easier。
 
 # 代码说明：
 BaseRepository：负责统一封装get和post请求，供子类调用，获取服务器数据
