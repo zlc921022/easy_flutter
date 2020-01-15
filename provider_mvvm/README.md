@@ -2,6 +2,7 @@
 
 A Flutter MVVM plugin for iOS and Android,It makes Make development easier。
 
+
 # 代码说明：
 
 - BaseRepository：负责统一封装get和post请求，供子类调用，获取服务器数据
@@ -91,6 +92,11 @@ class MovieRepository extends BaseRepository {
           if (model.isError()) {
             Toast.show(model.viewStateError.message);
           }
+          if (movieData.length == 0) {
+            return ViewStateEmptyWidget(onPressed: () {
+              refreshData(model: model);
+            });
+          }
           return Scaffold(
               appBar: AppBar(
                   title: Text(
@@ -150,6 +156,9 @@ class MovieRepository extends BaseRepository {
     model.isRefresh = isRefresh;
     var list = await model.getComingList(start: start, count: count);
     var movieList = MovieDataUtil.getMovieList(list);
+    if (isRefresh) {
+      this.movieData.clear();
+    }
     if (movieList == null || movieList.isEmpty) {
       model.isLoadMore = false;
       _loadMore = false;
@@ -157,9 +166,6 @@ class MovieRepository extends BaseRepository {
       model.isLoadMore = true;
       _loadMore = true;
       start += count;
-      if (isRefresh) {
-        this.movieData.clear();
-      }
       this.movieData.addAll(movieList);
     }
     refreshState(model: model);
@@ -196,6 +202,4 @@ class MovieRepository extends BaseRepository {
     }
   }
 ```
-
-
 

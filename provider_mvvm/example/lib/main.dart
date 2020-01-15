@@ -72,6 +72,11 @@ class MyHomePageState extends State<MyHomePage> {
           if (model.isError()) {
             Toast.show(model.viewStateError.message);
           }
+          if (movieData.length == 0) {
+            return ViewStateEmptyWidget(onPressed: () {
+              refreshData(model: model);
+            });
+          }
           return Scaffold(
               appBar: AppBar(
                   title: Text(
@@ -143,6 +148,9 @@ class MyHomePageState extends State<MyHomePage> {
     model.isRefresh = isRefresh;
     var list = await model.getComingList(start: start, count: count);
     var movieList = MovieDataUtil.getMovieList(list);
+    if (isRefresh) {
+      this.movieData.clear();
+    }
     if (movieList == null || movieList.isEmpty) {
       model.isLoadMore = false;
       _loadMore = false;
@@ -150,9 +158,6 @@ class MyHomePageState extends State<MyHomePage> {
       model.isLoadMore = true;
       _loadMore = true;
       start += count;
-      if (isRefresh) {
-        this.movieData.clear();
-      }
       this.movieData.addAll(movieList);
     }
     refreshState(model: model);
