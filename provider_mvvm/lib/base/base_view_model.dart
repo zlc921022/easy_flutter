@@ -18,6 +18,9 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
 
   ViewStateError get viewStateError => _viewStateError;
 
+  /// 是否是刷新状态
+  bool isRefresh = false;
+
   /// 是否是加载更多
   bool isLoadMore = false;
 
@@ -108,5 +111,12 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   /// 数据加载成功状态 不为空
   bool isSuccess() {
     return this._state == ViewState.success;
+  }
+
+  /// 是否是成功显示数据状态
+  /// false 表示数据状态为加载中 数据为空 或者数据加载失败
+  /// true 数据成功 or 刷新状态 or 加载更多状态
+  bool isSuccessShowDataState() {
+    return isSuccess() || isRefresh || isLoadMore;
   }
 }

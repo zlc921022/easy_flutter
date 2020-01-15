@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_mvvm/base/provider_widget.dart';
 import 'package:provider_mvvm/base/view_state_widget.dart';
 import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/toast.dart';
 
 import 'model/movie_item.dart';
 import 'repository/movie_repository.dart';
@@ -38,7 +39,6 @@ class MyHomePageState extends State<MyHomePage> {
   bool _loadMore = false;
 
   /// 是否是刷新
-  bool _refresh = false;
   int start = 0;
   int count = 20;
   List<MovieItem> movieData = [];
@@ -56,18 +56,21 @@ class MyHomePageState extends State<MyHomePage> {
         model: MovieListViewModel(),
         initData: (model) {
           addListener(model);
-          loadMoreData(model: model);
+          loadData(model: model);
         },
         builder: (context, model, child) {
-          if (model.isLoading() && !_refresh && !model.isLoadMore) {
+          if (!model.isSuccessShowDataState() && movieData.length == 0) {
             return CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {
-                  loadMoreData(model: model);
+                  refreshData(model: model);
                 },
                 onErrorPressed: () {
-                  loadMoreData(model: model);
+                  refreshData(model: model);
                 });
+          }
+          if (model.isError()) {
+            Toast.show(model.viewStateError.message);
           }
           return Scaffold(
               appBar: AppBar(
@@ -78,29 +81,33 @@ class MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 16, color: AppColor.white),
               )),
               body: RefreshIndicator(
-                  child: Container(
-                      color: AppColor.white,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: movieData.length,
-                          controller: _scrollController,
-                          itemBuilder: (context, index) {
-                            if (_loadMore && (index + 1) == movieData.length) {
-                              return Container(
-                                padding: EdgeInsets.only(top: 15, bottom: 15),
-                                child: Center(
-                                  child: CupertinoActivityIndicator(),
-                                ),
-                              );
-                            }
-                            MovieItem movieItem = movieData[index];
-                            return new MovieListItemView(
-                                movieItem, 'coming_soon');
-                          })),
+                  child: _buildHomeList(),
                   onRefresh: () {
                     return refreshData(model: model);
                   }));
         });
+  }
+
+  /// 构建首页列表
+  Widget _buildHomeList() {
+    return Container(
+        color: AppColor.white,
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: movieData.length,
+            controller: _scrollController,
+            itemBuilder: (context, index) {
+              if (_loadMore && (index + 1) == movieData.length) {
+                return Container(
+                  padding: EdgeInsets.only(top: 15, bottom: 15),
+                  child: Center(
+                    child: CupertinoActivityIndicator(),
+                  ),
+                );
+              }
+              MovieItem movieItem = movieData[index];
+              return new MovieListItemView(movieItem, 'coming_soon');
+            }));
   }
 
   /// 添加监听
@@ -121,34 +128,35 @@ class MyHomePageState extends State<MyHomePage> {
   Future<void> refreshData({@required MovieListViewModel model}) async {
     start = 0;
     count = 20;
-    _refresh = true;
-    var newMovies = await loadData(model);
-    _refresh = false;
-    this.movieData.clear();
-    if (newMovies != null) {
-      this.movieData.addAll(newMovies);
-    }
-    refreshState(model: model);
+    loadData(model: model, isRefresh: true);
   }
 
   /// 加载更多数据
   Future<void> loadMoreData({@required MovieListViewModel model}) async {
-    var newMovies = await loadData(model);
-    if (newMovies != null && newMovies.length > 0) {
-      this.movieData.addAll(newMovies);
-      start = start + count;
-      model.isLoadMore = true;
-      _loadMore = true;
-    } else {
-      _loadMore = false;
-      model.isLoadMore = false;
-    }
-    refreshState(model: model);
+    loadData(model: model, isLoadMore: true);
   }
 
-  Future<dynamic> loadData(MovieListViewModel model) async {
+  Future<dynamic> loadData(
+      {MovieListViewModel model,
+      bool isRefresh = false,
+      bool isLoadMore = false}) async {
+    model.isRefresh = isRefresh;
     var list = await model.getComingList(start: start, count: count);
-    return MovieDataUtil.getMovieList(list);
+    var movieList = MovieDataUtil.getMovieList(list);
+    if (movieList == null || movieList.isEmpty) {
+      model.isLoadMore = false;
+      _loadMore = false;
+    } else {
+      model.isLoadMore = true;
+      _loadMore = true;
+      start += count;
+      if (isRefresh) {
+        this.movieData.clear();
+      }
+      this.movieData.addAll(movieList);
+    }
+    refreshState(model: model);
+    return null;
   }
 
   /// 刷新状态
