@@ -1,9 +1,4 @@
 # example
-
-# Flutter MVVM框架介绍
-
-A Flutter MVVM plugin for iOS and Android,It makes Make development easier。
-
 # 使用步骤
 ## 1. 创建ViewModel
 
