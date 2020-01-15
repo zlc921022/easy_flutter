@@ -43,7 +43,7 @@ class _ActorPhotosViewState extends State<ActorPhotosView> {
           _addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccess() && !model.isLoadMore) {
+          if (!model.isSuccessShowDataState()) {
             return CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {

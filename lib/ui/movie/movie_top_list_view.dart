@@ -153,7 +153,7 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccess() && !_refresh && !model.isLoadMore) {
+          if (!model.isSuccessShowDataState()) {
             return new CommonViewStateHelper(
                 model: model,
                 onErrorPressed: () {

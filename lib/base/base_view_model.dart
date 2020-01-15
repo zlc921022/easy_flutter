@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/base/base_repository.dart';
 import 'package:flutter_movie/base/view_state.dart';
+import 'package:flutter_movie/util/toast.dart';
 
 /// 父类ViewModel
 abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
@@ -16,6 +17,9 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   ViewStateError _viewStateError;
 
   ViewStateError get viewStateError => _viewStateError;
+
+  /// 是否是刷新
+  bool isRefresh = false;
 
   /// 是否是加载更多
   bool isLoadMore = false;
@@ -79,6 +83,7 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
       e = e.error;
       message = e.message;
     }
+    Toast.show(message);
     _viewStateError = new ViewStateError(e, message);
     setState(ViewState.error);
   }
@@ -107,5 +112,12 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   /// 数据加载成功状态 不为空
   bool isSuccess() {
     return this._state == ViewState.success;
+  }
+
+  /// 是否是成功显示数据状态
+  /// false 表示数据状态为加载中 数据为空 或者数据加载失败
+  /// true 数据成功 or 刷新状态 or 加载更多状态
+  bool isSuccessShowDataState() {
+    return isSuccess() || isRefresh || isLoadMore;
   }
 }

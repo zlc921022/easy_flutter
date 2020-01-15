@@ -98,7 +98,7 @@ class MovieListViewState extends State<MovieListView> {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (!_refresh && !model.isSuccess() && !model.isLoadMore) {
+          if (!model.isSuccessShowDataState()) {
             return new CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {
