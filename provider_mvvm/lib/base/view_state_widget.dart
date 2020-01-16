@@ -23,9 +23,11 @@ class CommonViewStateHelper<T extends BaseViewModel> extends StatelessWidget {
       return new ViewStateLoadingWidget();
     } else if (model.isEmpty()) {
       return new ViewStateEmptyWidget(onPressed: onEmptyPressed);
-    } else {
+    } else if (model.isError()) {
       return new ViewStateErrorWidget(
           error: model.viewStateError, onPressed: onErrorPressed);
+    } else {
+      throw new Exception('状态异常，请核查状态');
     }
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_mvvm/base/provider_widget.dart';
 import 'package:provider_mvvm/base/view_state_widget.dart';
 import 'package:provider_mvvm/common/app_color.dart';
-import 'package:provider_mvvm/utils/toast.dart';
+import 'package:provider_mvvm/utils/toast_util.dart';
 
 import 'model/movie_item.dart';
 import 'repository/movie_repository.dart';
@@ -70,7 +70,7 @@ class MyHomePageState extends State<MyHomePage> {
                 });
           }
           if (model.isError()) {
-            Toast.show(model.viewStateError.message);
+            ToastUtil.show(model.viewStateError.message);
           }
           if (movieData.length == 0) {
             return ViewStateEmptyWidget(onPressed: () {

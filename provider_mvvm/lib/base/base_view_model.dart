@@ -7,11 +7,12 @@ import 'view_state.dart';
 /// 父类ViewModel
 abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   /// 防止页面销毁后,异步任务才完成,导致报错
-  bool _disposed = false;
-  T mRepository;
+  bool disposed = false;
 
   /// 初始化状态为加载中
   ViewState _state = ViewState.loading;
+
+  ViewState get state => _state;
 
   /// 错误状态类
   ViewStateError _viewStateError;
@@ -24,14 +25,16 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
   /// 是否是加载更多
   bool isLoadMore = false;
 
+  T mRepository;
+
   BaseViewModel({ViewState state}) {
     this._state = state;
     mRepository = createRepository();
   }
 
-  /// 通用请求数据方法
+  /// 通用请求数据方法 子类可以复写
   Future<dynamic> requestData(Future<dynamic> f) async {
-    if (!isLoadMore) {
+    if (!isLoadMore && !isRefresh) {
       setLoading();
     }
     try {
@@ -51,14 +54,14 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
 
   @override
   void notifyListeners() {
-    if (!_disposed) {
+    if (!disposed) {
       super.notifyListeners();
     }
   }
 
   @override
   void dispose() {
-    _disposed = true;
+    disposed = true;
     super.dispose();
   }
 
@@ -83,7 +86,7 @@ abstract class BaseViewModel<T extends BaseRepository> with ChangeNotifier {
       e = e.error;
       message = e.message;
     }
-    _viewStateError = new ViewStateError(e, message);
+    _viewStateError = new ViewStateError(error: e, message: message);
     setState(ViewState.error);
   }
 

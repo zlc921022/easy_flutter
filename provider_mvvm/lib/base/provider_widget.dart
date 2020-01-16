@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'base_repository.dart';
 import 'base_view_model.dart';
 
+/// 负责创建viewModel对象和初始化数据加载
 class ProviderWidget<T extends BaseViewModel<V>, V extends BaseRepository>
     extends StatefulWidget {
   /// viewModel

@@ -17,7 +17,7 @@ class ViewStateError {
   Error error;
   String message;
 
-  ViewStateError(this.error, this.message) {
+  ViewStateError({this.error, this.message}) {
     this.message ??= '服务器异常';
   }
 }
