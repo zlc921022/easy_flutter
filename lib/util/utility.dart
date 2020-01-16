@@ -1,5 +1,7 @@
-import 'screen.dart';
+
+
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 fixedFontSize(double fontSize) {
-  return fontSize / Screen.textScaleFactor;
+  return fontSize / ScreenUtil.textScaleFactor;
 }

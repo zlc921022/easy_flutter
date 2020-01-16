@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 
 /// 通用参数拦截器
 class CommonParamInterceptor extends InterceptorsWrapper {
+  static const String apiKey = '0b2bdeda43b5688921839c8ecb20399b';
+
   CommonParamInterceptor();
 
   @override
@@ -28,10 +30,12 @@ class CommonParamInterceptor extends InterceptorsWrapper {
     var newData = new RequestOptions().data;
     var data = options.data;
     var commonParams = getCommonParams();
+
     /// 添加通用元素
     for (String key in commonParams.keys) {
       newData[key] = commonParams[key];
     }
+
     /// 参数回填
     for (String key in data.keys) {
       newData[key] = data[key];
@@ -39,11 +43,10 @@ class CommonParamInterceptor extends InterceptorsWrapper {
     return newData;
   }
 
-  /// 添加并获取通用参数
+  /// 添加并获取通用参数 子类可以复写
   Map<String, dynamic> getCommonParams() {
-    Map<String, dynamic> _commonParams = new Map();
-    _commonParams['token'] = '11';
-    _commonParams['id'] = '22';
-    return _commonParams;
+    Map<String, dynamic> commonParams = new Map();
+    commonParams['apikey'] = apiKey;
+    return commonParams;
   }
 }

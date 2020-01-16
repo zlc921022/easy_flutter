@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/home_section_title.dart';
 import 'package:flutter_movie/ui/home/top_list_item_view.dart';
 import 'package:flutter_movie/viewmodel/movie_view_model.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 class HomeTopMovieList extends StatefulWidget {
   HomeTopMovieList();

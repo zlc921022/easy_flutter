@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 通用头部AppBar
 class CommonAppBar extends AppBar {

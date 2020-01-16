@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 class HeadBannerItem extends StatelessWidget {
   final String imageUrl;
@@ -18,7 +18,7 @@ class HeadBannerItem extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-              width: Screen.width,
+              width: ScreenUtil.width,
               height: 120,
               child: ClipRRect(
                 child: CachedNetworkImage(imageUrl: imageUrl),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
-import 'app_color.dart';
 
 /// 首页章节标题
 class HomeSectionTitle extends StatelessWidget {

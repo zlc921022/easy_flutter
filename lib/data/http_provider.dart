@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_movie/data/interceptor/common_header_interceptor.dart';
-import 'package:flutter_movie/data/interceptor/common_log_interceptor.dart';
-import 'package:flutter_movie/data/interceptor/common_param_interceptor.dart';
+import 'package:provider_mvvm/interceptor/common_dynamic_url_interceptor.dart';
+import 'package:provider_mvvm/interceptor/common_header_interceptor.dart';
+import 'package:provider_mvvm/interceptor/common_log_interceptor.dart';
+import 'package:provider_mvvm/interceptor/common_param_interceptor.dart';
 
 class HttpProvider {
-  static const String baseUrl = 'http://api.douban.com/v2/movie/';
-  static const String apiKey = '0b2bdeda43b5688921839c8ecb20399b';
+  static const String BASE_URL = 'http://api.douban.com/v2/movie/';
   static const String webUrl = 'https://movie.douban.com/';
 
   Dio _dio;
@@ -27,16 +27,25 @@ class HttpProvider {
   ///创建dio网络请求对象
   Dio _createDio() {
     final options = BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: BASE_URL,
         connectTimeout: 30 * 1000,
-        receiveTimeout: 30 * 1000,
-        queryParameters: {"apikey": apiKey});
+        receiveTimeout: 30 * 1000);
     final dio = new Dio(options);
     // 添加通用拦截器
-    dio.interceptors.add(CommonHeaderInterceptor());
-    dio.interceptors.add(CommonParamInterceptor());
-    dio.interceptors.add(CommonLogInterceptor());
+    for (Interceptor interceptor in getInterceptors()) {
+      dio.interceptors.add(interceptor);
+    }
     return dio;
+  }
+
+  // 子类可以复写该方法 自定义添加拦截器
+  List<Interceptor> getInterceptors() {
+    List<Interceptor> interceptors = [];
+    interceptors.add(CommonDynamicUrlInterceptor());
+    interceptors.add(CommonHeaderInterceptor());
+    interceptors.add(CommonParamInterceptor());
+    interceptors.add(CommonLogInterceptor());
+    return interceptors;
   }
 
   Dio getDio() {

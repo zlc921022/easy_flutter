@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_my_item_view.dart';
 import 'package:flutter_movie/ui/my/my_head_image.dart';
-import 'package:flutter_movie/util/screen.dart';
-import 'package:flutter_movie/util/toast.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
+import 'package:provider_mvvm/utils/toast_util.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class MyPage extends StatefulWidget {
 class MyPageState extends State<MyPage> with RouteAware {
   @override
   Widget build(BuildContext context) {
-    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    ScreenUtil.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return Scaffold(
       body: Container(
         color: AppColor.white,
@@ -45,19 +45,19 @@ class MyPageState extends State<MyPage> with RouteAware {
   // 技术交流
   void clickQQChat() {
     Clipboard.setData(ClipboardData(text: '1509815887'));
-    Toast.show('qq已拷贝');
+    ToastUtil.show('qq已拷贝');
   }
 
   // 微信
   void clickWeChat() {
     Clipboard.setData(ClipboardData(text: '1509815887'));
-    Toast.show('微信已拷贝');
+    ToastUtil.show('微信已拷贝');
   }
 
 // 我的公众号
   void clickAccount() {
     Clipboard.setData(ClipboardData(text: '1509815887'));
-    Toast.show('公众号已拷贝');
+    ToastUtil.show('公众号已拷贝');
   }
 
 // API文档

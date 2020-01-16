@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 /// 通用标题View
 class CommonTitleView extends StatelessWidget {
@@ -20,8 +20,8 @@ class CommonTitleView extends StatelessWidget {
       children: <Widget>[
         Container(
           width: 44,
-          height: Screen.navigationBarHeight,
-          padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
+          height: ScreenUtil.navigationBarHeight,
+          padding: EdgeInsets.only(left: 15, top: ScreenUtil.topSafeHeight),
           child: GestureDetector(
             onTap: () {
               AppNavigator.back(context);
@@ -32,10 +32,10 @@ class CommonTitleView extends StatelessWidget {
         Opacity(
           opacity: navAlpha,
           child: Container(
-            padding: EdgeInsets.only(left: 15, top: Screen.topSafeHeight),
+            padding: EdgeInsets.only(left: 15, top: ScreenUtil.topSafeHeight),
             decoration: BoxDecoration(color: pageColor ?? AppColor.white),
-            width: Screen.width,
-            height: Screen.navigationBarHeight,
+            width: ScreenUtil.width,
+            height: ScreenUtil.navigationBarHeight,
             child: Row(
               children: <Widget>[
                 GestureDetector(

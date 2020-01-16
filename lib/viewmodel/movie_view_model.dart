@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_movie/base/base_view_model.dart';
 import 'package:flutter_movie/model/movie_top_bannner.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider_mvvm/base/base_view_model.dart';
 
 /// 电影ViewModel
 class MovieViewModel extends BaseViewModel<MovieRepository> {

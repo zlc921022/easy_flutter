@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_detail.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 import 'package:flutter_movie/util/string_util.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
-import '../../../util/screen.dart';
 
 /// 电影详情头部
 class MovieDetailHead extends StatelessWidget {
@@ -20,7 +20,7 @@ class MovieDetailHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = Screen.width;
+    double width = ScreenUtil.width;
     double height = 234;
     return Stack(
       children: <Widget>[

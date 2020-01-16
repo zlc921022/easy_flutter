@@ -1,9 +1,9 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 import 'package:video_player/video_player.dart';
 /// 视频播放View
 class VideoPlayView extends StatefulWidget {
@@ -43,7 +43,7 @@ class VideoPlayViewState extends State<VideoPlayView> {
 
   @override
   Widget build(BuildContext context) {
-    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    ScreenUtil.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return new Scaffold(
         body: Stack(
       children: <Widget>[

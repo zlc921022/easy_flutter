@@ -4,16 +4,14 @@ import 'package:dio/dio.dart';
 class CommonHeaderInterceptor extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) {
-    options.headers = _getHeads();
+    options.headers = getHeads();
     return super.onRequest(options);
   }
 
-  /// 添加通用请求头参数
-  Map _getHeads() {
+  /// 添加通用请求头参数 子类可以复写该方法
+  Map getHeads() {
     Map<String, dynamic> map = new Map();
     map['token'] = '11';
-    map['id'] = '22';
-    map['name'] = '33';
     return map;
   }
 }

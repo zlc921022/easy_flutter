@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_item.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 ///即将上映条目
 class ComingMovieStaggeredGridItem extends StatelessWidget {
@@ -13,7 +13,7 @@ class ComingMovieStaggeredGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = (Screen.width - 48) / 2;
+    double width = (ScreenUtil.width - 48) / 2;
     return GestureDetector(
       onTap: () {
         AppNavigator.pushMovieDetail(context, movieItem: movieItem);

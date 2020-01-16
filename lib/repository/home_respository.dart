@@ -1,4 +1,3 @@
-import 'package:flutter_movie/base/base_repository.dart';
 import 'package:flutter_movie/data/api/app_api.dart';
 import 'package:flutter_movie/data/http_provider.dart';
 import 'package:flutter_movie/model/movie_news.dart';
@@ -6,8 +5,10 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' show parse;
 import 'package:http/http.dart' as http;
 
+import 'base_repository.dart';
+
 /// 首页相关的
-class HomeRepository extends BaseRepository {
+class HomeRepository extends BaseMovieRepository {
   ///  获取首页热门新闻文章
   Future<List<MovieNews>> getNewsList() async {
     List<MovieNews> news = [];

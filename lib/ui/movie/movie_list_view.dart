@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_list_item_view.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:flutter_movie/viewmodel/movie_list_view_model.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/base/view_state_widget.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 电影列表
 class MovieListView extends StatefulWidget {
@@ -27,8 +27,6 @@ class MovieListViewState extends State<MovieListView> {
   /// 是否还有更多
   bool _loadMore = false;
 
-  /// 是否是刷新
-  bool _refresh = false;
   int start = 0;
   int count = 20;
   List<MovieItem> movieData = [];
@@ -53,26 +51,25 @@ class MovieListViewState extends State<MovieListView> {
   Future<dynamic> loadData(MovieListViewModel model,
       {isRefresh = false}) async {
     var list;
-    _refresh = isRefresh;
+    model.isRefresh = isRefresh;
     if (widget.action == 'coming_soon') {
       list = await model.getComingList(start: start, count: count);
     } else if (widget.action == 'top_movie') {
       list = await model.getNowPlayingList(start: start, count: count);
     }
+    model.isRefresh = false;
     var newMovies = MovieDataUtil.getMovieList(list);
-    if (newMovies != null && newMovies.length > 0) {
-      if (isRefresh) {
-        this.movieData.clear();
-        this.movieData.addAll(newMovies);
-        _refresh = false;
-      } else {
-        this.movieData.addAll(newMovies);
-        _loadMore = true;
-        start = start + count;
-      }
-    } else {
+    if(isRefresh){
+      this.movieData.clear();
+    }
+    if(newMovies == null || newMovies.length == 0){
       _loadMore = false;
       model.isLoadMore = false;
+    }else{
+      this.movieData.addAll(newMovies);
+      _loadMore = true;
+      model.isLoadMore = true;
+      start = start + count;
     }
     if (movieData.isEmpty) {
       model.setEmpty();
@@ -91,6 +88,7 @@ class MovieListViewState extends State<MovieListView> {
 
   @override
   Widget build(BuildContext context) {
+    print('build movieData hashCode : ${movieData.hashCode}');
     return ProviderWidget<MovieListViewModel, MovieRepository>(
         model: MovieListViewModel(),
         initData: (model) {
@@ -98,7 +96,7 @@ class MovieListViewState extends State<MovieListView> {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccessShowDataState()) {
+          if (!model.isSuccess()) {
             return new CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {

@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_banner.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/home/banner_circle_point.dart';
 import 'package:flutter_movie/ui/home/banner_item_view.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 首页banner部分
 class HomeHeadBanner extends StatefulWidget {

@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:flutter_movie/viewmodel/actor_view_model.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/base/view_state_widget.dart';
 
 /// 演员相册和剧照页面
 class ActorPhotosView extends StatefulWidget {
@@ -43,7 +43,7 @@ class _ActorPhotosViewState extends State<ActorPhotosView> {
           _addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccessShowDataState()) {
+          if (!model.isSuccess()) {
             return CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {

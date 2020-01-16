@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/model/movie_top_bannner.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
 import 'package:flutter_movie/ui/movie/movie_top_list_view.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 /// 首页电影榜单条目
 class TopListItemView extends StatelessWidget {
@@ -37,14 +37,14 @@ class TopListItemView extends StatelessWidget {
                       image: CachedNetworkImageProvider(
                           topBanner.movies[0]?.images?.medium),
                       fit: BoxFit.cover,
-                      width: Screen.width,
+                      width: ScreenUtil.width,
                       height: height,
                     ),
                   ),
                   Opacity(
                     opacity: 0.6,
                     child: Container(
-                      width: Screen.width,
+                      width: ScreenUtil.width,
                       height: height,
                       decoration: BoxDecoration(
                           borderRadius: getBorderRadius(4, 0),

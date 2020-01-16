@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_banner.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 /// 首页banner条目
 class BannerItemView extends StatelessWidget {
@@ -27,7 +27,7 @@ class BannerItemView extends StatelessWidget {
                 child: Image(
                   image: CachedNetworkImageProvider(newsBanner.news?.cover),
                   fit: BoxFit.cover,
-                  width: Screen.width,
+                  width: ScreenUtil.width,
                 ),
               ),
               Container(

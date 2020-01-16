@@ -1,8 +1,9 @@
-import 'package:flutter_movie/base/base_repository.dart';
 import 'package:flutter_movie/data/api/app_api.dart';
-/// 演员相关的
-class ActorRepository extends BaseRepository {
 
+import 'base_repository.dart';
+
+/// 演员相关的
+class ActorRepository extends BaseMovieRepository {
   /// 影片剧照
   Future<dynamic> getMovieAlbum({String movieId, int start, int count}) async {
     var result = await get(ApiService.getMovieStagePhoto(movieId),
@@ -22,5 +23,4 @@ class ActorRepository extends BaseRepository {
         params: {'start': start, 'count': count});
     return result;
   }
-
 }

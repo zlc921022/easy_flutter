@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_item.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/home_look_all_view.dart';
 import 'package:flutter_movie/ui/common/home_section_title.dart';
 import 'package:flutter_movie/ui/home/coming_movie_staggered_grid_item.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 即将上映
 class HomeComingMovie extends StatelessWidget {

@@ -1,8 +1,9 @@
-import 'package:flutter_movie/base/base_repository.dart';
 import 'package:flutter_movie/data/api/app_api.dart';
-/// 电影
-class MovieRepository extends BaseRepository {
 
+import 'base_repository.dart';
+
+/// 电影
+class MovieRepository extends BaseMovieRepository {
   /// 获取本周口碑榜电影
   Future<dynamic> getWeeklyList() async {
     return await get(ApiService.getWeeklyList());

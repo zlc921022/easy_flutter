@@ -2,11 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_detail.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_intro_view.dart';
 import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_cast.dart';
@@ -14,9 +11,12 @@ import 'package:flutter_movie/ui/movie/detail/movie_detail_channel.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_comment.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_head.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_detail_trailer.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_view_model.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/base/view_state_widget.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 /// 电影详情
 class MovieDetailView extends StatefulWidget {
@@ -67,7 +67,7 @@ class MovieDetailViewState extends State<MovieDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    ScreenUtil.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return ProviderWidget<MovieViewModel, MovieRepository>(
         model: MovieViewModel(),
         initData: (model) {

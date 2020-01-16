@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 ///演员相册
 class ActorPhotoView extends StatelessWidget {

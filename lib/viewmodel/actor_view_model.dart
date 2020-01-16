@@ -1,6 +1,6 @@
-import 'package:flutter_movie/base/base_view_model.dart';
 import 'package:flutter_movie/model/movie_photo.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
+import 'package:provider_mvvm/base/base_view_model.dart';
 
 /// 演员对应ViewModel
 class ActorViewModel extends BaseViewModel<ActorRepository> {

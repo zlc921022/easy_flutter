@@ -1,18 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_actor_detail.dart';
 import 'package:flutter_movie/repository/actor_repository.dart';
 import 'package:flutter_movie/ui/actor/detail/actor_detail_head.dart';
 import 'package:flutter_movie/ui/actor/detail/actor_detail_photo.dart';
 import 'package:flutter_movie/ui/actor/detail/actor_detail_works.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_intro_view.dart';
 import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/viewmodel/actor_view_model.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/base/view_state_widget.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 演员详情View
 class ActorDetailView extends StatefulWidget {

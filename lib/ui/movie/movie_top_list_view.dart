@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_title_view.dart';
 import 'package:flutter_movie/ui/movie/detail/movie_top_head_view.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
-import 'package:flutter_movie/util/screen.dart';
 import 'package:flutter_movie/viewmodel/movie_list_view_model.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/base/view_state_widget.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 import 'detail/movie_top_list_item_view.dart';
 
@@ -38,8 +38,6 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
   /// 是否还有更多
   bool _loadMore = false;
 
-  /// 是否是刷新
-  bool _refresh = false;
   bool isVisible = true;
 
   /// 列表数据
@@ -94,7 +92,7 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
   Future<dynamic> loadData(MovieListViewModel model,
       {isRefresh = false}) async {
     var list;
-    _refresh = isRefresh;
+    model.isRefresh = isRefresh;
     switch (widget.action) {
       case 'weekly':
         list = await model.getWeeklyList();
@@ -109,20 +107,19 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
         list = await model.getUsBoxList();
         break;
     }
+    model.isRefresh = false;
+    if (isRefresh) {
+      topMovieData.clear();
+    }
     var newMovie = MovieDataUtil.getMovieList(list);
-    if (newMovie != null && newMovie.length > 0) {
-      if (isRefresh) {
-        topMovieData.clear();
-        topMovieData.addAll(newMovie);
-        _refresh = false;
-      } else {
-        _loadMore = true;
-        topMovieData.addAll(newMovie);
-        start = start + count;
-      }
-    } else {
+    if (newMovie == null || newMovie.length == 0) {
       _loadMore = false;
       model.isLoadMore = false;
+    } else {
+      _loadMore = true;
+      model.isLoadMore = true;
+      topMovieData.addAll(newMovie);
+      start = start + count;
     }
     if (widget.action != 'top250') {
       _loadMore = false;
@@ -153,7 +150,7 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
           addListener(model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccessShowDataState()) {
+          if (!model.isSuccess()) {
             return new CommonViewStateHelper(
                 model: model,
                 onErrorPressed: () {
@@ -240,9 +237,9 @@ class MovieTopListViewState extends State<MovieTopListView> with RouteAware {
   /// 更新状态栏
   updateStatusBar() {
     if (navAlpha == 1) {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
+      ScreenUtil.updateStatusBarStyle(SystemUiOverlayStyle.dark);
     } else {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+      ScreenUtil.updateStatusBarStyle(SystemUiOverlayStyle.light);
     }
   }
 }

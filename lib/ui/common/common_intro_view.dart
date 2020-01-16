@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 通用的简介 text折叠收起控件
 class CommonIntroView extends StatelessWidget {

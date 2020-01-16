@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 通用我的页面itemView
 class CommonMyItemView extends StatelessWidget {

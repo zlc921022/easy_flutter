@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_item.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
 import 'package:flutter_movie/ui/common/common_rounded_image.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 影院热映条目
 class TopMovieItem extends StatelessWidget {

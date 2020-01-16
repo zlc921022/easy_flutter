@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/base/provider_widget.dart';
-import 'package:flutter_movie/base/view_state_widget.dart';
 import 'package:flutter_movie/model/movie_banner.dart';
 import 'package:flutter_movie/model/movie_item.dart';
 import 'package:flutter_movie/repository/home_respository.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/home/home_coming_movie.dart';
 import 'package:flutter_movie/ui/home/home_head_banner.dart';
 import 'package:flutter_movie/ui/home/home_top_movie.dart';
 import 'package:flutter_movie/ui/home/home_top_movie_list.dart';
 import 'package:flutter_movie/util/movie_data_util.dart';
 import 'package:flutter_movie/viewmodel/home_view_model.dart';
+import 'package:provider_mvvm/base/provider_widget.dart';
+import 'package:provider_mvvm/base/view_state_widget.dart';
 
 /// 首页列表
 class HomeListView extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_app_bar.dart';
 import 'package:flutter_movie/ui/home/home_list_view.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 class HomePage extends StatefulWidget {
   @override

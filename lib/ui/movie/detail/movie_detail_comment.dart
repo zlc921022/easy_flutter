@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_comment.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
 import 'package:flutter_movie/ui/common/common_section_title.dart';
 import 'package:flutter_movie/ui/common/static_rating_bar.dart';
+import 'package:provider_mvvm/common/app_color.dart';
 
 /// 电影详情评论
 class MovieDetailComment extends StatelessWidget {

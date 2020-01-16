@@ -1,5 +1,5 @@
-import 'package:flutter_movie/base/base_view_model.dart';
 import 'package:flutter_movie/repository/movie_repository.dart';
+import 'package:provider_mvvm/base/base_view_model.dart';
 
 /// 电影列表ViewModel
 class MovieListViewModel extends BaseViewModel<MovieRepository> {

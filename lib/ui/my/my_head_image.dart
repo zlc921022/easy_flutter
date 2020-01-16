@@ -2,8 +2,8 @@ import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
-import 'package:flutter_movie/util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 class MyHeadImage extends StatelessWidget {
   final String imageUrl =
@@ -16,13 +16,13 @@ class MyHeadImage extends StatelessWidget {
       children: <Widget>[
         Container(
           height: 248,
-          width: Screen.width,
+          width: ScreenUtil.width,
           color: AppColor.black,
           child: Opacity(
             opacity: 0.7,
             child: Image(
               image: CachedNetworkImageProvider(imageUrl),
-              width: Screen.width,
+              width: ScreenUtil.width,
               height: 188,
               fit: BoxFit.cover,
             ),
@@ -31,7 +31,7 @@ class MyHeadImage extends StatelessWidget {
         BackdropFilter(
           filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: Container(
-            width: Screen.width,
+            width: ScreenUtil.width,
             height: 248,
             color: Colors.transparent,
             child: Column(

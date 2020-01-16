@@ -3,9 +3,8 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/model/movie_actor_detail.dart';
-import 'package:flutter_movie/ui/common/app_color.dart';
-
-import '../../../util/screen.dart';
+import 'package:provider_mvvm/common/app_color.dart';
+import 'package:provider_mvvm/utils/screen_util.dart';
 
 /// 演员详情头部
 class ActorDetailHead extends StatelessWidget {
@@ -15,7 +14,7 @@ class ActorDetailHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = Screen.width;
+    double width = ScreenUtil.width;
     double height = 228;
     return Stack(
       children: <Widget>[
