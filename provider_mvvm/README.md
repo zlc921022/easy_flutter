@@ -10,8 +10,6 @@ A Flutter MVVM plugin for iOS and Android,It makes Make development easier。
 - ViewState：widget状态枚举类
 - ProviderWidget：负责给widget创建viewmodel对象，关联viewmodel，提供一个初始化加载数据方法。
 - CommonViewStateHelper：_针对widget状态为加载中，数据为空，数据加载失败做统一处理，并提供数据为空，数据加载失败的点击事件处理。_
-- HttpProvider：单例对象，负责创建dio网络对象，添加通用请求头，请求参数，log日志拦截期。
-- ApiManager：单例对象，负责获取HttpProvider对象，进而获取dio网络请求对象。
 
 代码中用到的插件：
 
@@ -79,7 +77,7 @@ class MovieRepository extends BaseRepository {
           loadData(model: model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccessShowDataState() && movieData.length == 0) {
+          if (!model.isSuccess()) {
             return CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {

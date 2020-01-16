@@ -57,7 +57,7 @@ class MovieRepository extends BaseRepository {
           loadData(model: model);
         },
         builder: (context, model, child) {
-          if (!model.isSuccessShowDataState() && movieData.length == 0) {
+          if (!model.isSuccess()) {
             return CommonViewStateHelper(
                 model: model,
                 onEmptyPressed: () {
@@ -180,5 +180,4 @@ class MovieRepository extends BaseRepository {
     }
   }
 ```
-
 
