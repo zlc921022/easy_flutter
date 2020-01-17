@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_movie/ui/common/app_navigator.dart';
@@ -6,6 +9,8 @@ import 'package:flutter_movie/ui/my/my_head_image.dart';
 import 'package:provider_mvvm/common/app_color.dart';
 import 'package:provider_mvvm/utils/screen_util.dart';
 import 'package:provider_mvvm/utils/toast_util.dart';
+
+import 'asr_page.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -30,10 +35,26 @@ class MyPageState extends State<MyPage> with RouteAware {
             CommonMyItemView('icon_wechat.png', '我的微信号', clickWeChat),
             CommonMyItemView('icon_account.png', '我的公众号', clickAccount),
             CommonMyItemView('icon_api.png', 'API文档', clickApi),
+            buildAsr(),
           ],
         ),
       ),
     );
+  }
+
+  Widget buildAsr() {
+    if (Platform.isAndroid) {
+      return CommonMyItemView('icon_api.png', '语音识别', clickAsr);
+    } else {
+      return Container();
+    }
+  }
+
+  /// 语音识别
+  void clickAsr() {
+    Navigator.push(context, new CupertinoPageRoute(builder: (context) {
+      return AsrPage();
+    }));
   }
 
   // 项目地址
